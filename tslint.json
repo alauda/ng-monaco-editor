@@ -1,0 +1,48 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-angular",
+    "tslint-config-prettier",
+    "tslint-plugin-prettier"
+  ],
+  "rulesDirectory": "./tslint-rules",
+  "rules": {
+    "prettier": true,
+    "no-useless-cast": false,
+    "no-duplicate-string": false,
+    "no-identical-functions": false,
+    "max-union-size": false,
+    "no-big-function": false,
+    "use-view-encapsulation": false,
+    "no-input-rename": false,
+    "no-output-rename": false,
+    "no-use-before-declare": false,
+    "max-classes-per-file": false,
+    "no-non-null-assertion": false,
+    "use-host-property-decorator": false,
+    "no-reference": false,
+    "interface-name": false,
+    "no-debugger": true,
+    "ordered-imports": true,
+    "no-unused-expression": true,
+    "no-console": [true, "log"],
+    "no-consecutive-blank-lines": [true, 1],
+    "validate-decorators": [
+      true,
+      {
+        "Component": {
+          "encapsulation": "\\.None$",
+          "preserveWhitespaces": "false$",
+          "changeDetection": "\\.OnPush$",
+          "!styles": ".*",
+          "!host": "\\[class\\]"
+        },
+        "Directive": {
+          "!host": "\\[class\\]"
+        }
+      },
+      "src/**/!(*.spec).ts"
+    ],
+    "deprecation": { "severity": "warning" }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "./release",
+  "lib": {
+    "entryFile": "src/public_api.ts",
+    "languageLevel": ["dom", "es2017"]
+  },
+  "whitelistedNonPeerDependencies": ["."]
+}
