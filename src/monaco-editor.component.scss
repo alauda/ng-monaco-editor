@@ -1,0 +1,78 @@
+ng-monaco-editor,
+ng-monaco-diff-editor {
+  display: block;
+}
+
+.ng-monaco-editor-container {
+  height: 100%;
+  &__monaco-anchor {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.ng-monaco-editor-container,
+.ng-monaco-editor-container__monaco-anchor {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+}
+
+.ng-monaco-editor-container__monaco-anchor {
+  .monaco-diff-editor,
+  .monaco-editor {
+    flex: 1;
+  }
+}
+
+/* Loading spinner for code editor */
+.ng-monaco-editor-spinner {
+  width: 40px;
+  height: 40px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  &__double-bounce1,
+  &__double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #333;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    -webkit-animation: sk-bounce 2s infinite ease-in-out;
+    animation: sk-bounce 2s infinite ease-in-out;
+  }
+
+  &__double-bounce2 {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+  }
+
+  @-webkit-keyframes sk-bounce {
+    0%,
+    100% {
+      -webkit-transform: scale(0);
+    }
+    50% {
+      -webkit-transform: scale(1);
+    }
+  }
+
+  @keyframes sk-bounce {
+    0%,
+    100% {
+      transform: scale(0);
+      -webkit-transform: scale(0);
+    }
+    50% {
+      transform: scale(1);
+      -webkit-transform: scale(1);
+    }
+  }
+}
