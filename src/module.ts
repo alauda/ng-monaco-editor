@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import {
+  ModuleWithProviders,
+  NgModule,
+  Optional,
+  SkipSelf,
+} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CodeColorizeDirective } from './code-colorize.directive';
@@ -15,20 +20,47 @@ const EXPORTABLES = [
   CodeColorizeDirective,
 ];
 
+export function MONACO_PROVIDER_FACTORY(
+  parent: MonacoProviderService,
+  monacoEditorConfig: MonacoEditorConfig,
+) {
+  return parent || new MonacoProviderService(monacoEditorConfig);
+}
+
+/** @docs-private */
+export const MONACO_PROVIDER = {
+  // If there is already an CodeEditorIntl available, use that. Otherwise, provide a new one.
+  provide: MonacoProviderService,
+  deps: [
+    [new Optional(), new SkipSelf(), MonacoProviderService],
+    MonacoEditorConfig,
+  ],
+  useFactory: MONACO_PROVIDER_FACTORY,
+};
+
+export function RESIZE_SENSOR_PROVIDER_FACTORY(parent: ResizeSensorService) {
+  return parent || new ResizeSensorService();
+}
+
+/** @docs-private */
+export const RESIZE_SENSOR_PROVIDER = {
+  // If there is already an CodeEditorIntl available, use that. Otherwise, provide a new one.
+  provide: ResizeSensorService,
+  deps: [[new Optional(), new SkipSelf(), ResizeSensorService]],
+  useFactory: RESIZE_SENSOR_PROVIDER_FACTORY,
+};
+
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   declarations: [...EXPORTABLES],
   exports: [...EXPORTABLES],
+  providers: [MONACO_PROVIDER, RESIZE_SENSOR_PROVIDER],
 })
 export class MonacoEditorModule {
   public static forRoot(config: MonacoEditorConfig = {}): ModuleWithProviders {
     return {
       ngModule: MonacoEditorModule,
-      providers: [
-        { provide: MonacoEditorConfig, useValue: config },
-        MonacoProviderService,
-        ResizeSensorService,
-      ],
+      providers: [{ provide: MonacoEditorConfig, useValue: config }],
     };
   }
 }
