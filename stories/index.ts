@@ -1,6 +1,6 @@
 import { withKnobs } from '@storybook/addon-knobs/angular';
 import { storiesOf } from '@storybook/angular';
-import { CodeEditorModule } from '../src/public-api';
+import { MonacoEditorModule } from '../src/public-api';
 
 const exampleCode = `
 apiVersion: v1
@@ -39,7 +39,7 @@ storiesOf('Code Editor', module)
     return {
       moduleMetadata: {
         imports: [
-          CodeEditorModule.forRoot({
+          MonacoEditorModule.forRoot({
             baseUrl: '',
             defaultOptions: {},
           }),
@@ -65,7 +65,7 @@ storiesOf('Code Editor', module)
     return {
       moduleMetadata: {
         imports: [
-          CodeEditorModule.forRoot({
+          MonacoEditorModule.forRoot({
             baseUrl: '',
             defaultOptions: {},
           }),

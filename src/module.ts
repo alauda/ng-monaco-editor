@@ -20,10 +20,10 @@ const EXPORTABLES = [
   declarations: [...EXPORTABLES],
   exports: [...EXPORTABLES],
 })
-export class CodeEditorModule {
+export class MonacoEditorModule {
   public static forRoot(config: MonacoEditorConfig = {}): ModuleWithProviders {
     return {
-      ngModule: CodeEditorModule,
+      ngModule: MonacoEditorModule,
       providers: [
         { provide: MonacoEditorConfig, useValue: config },
         MonacoProviderService,
