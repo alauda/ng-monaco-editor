@@ -7,7 +7,8 @@
     "build:clean": "yarn rimraf ./release",
     "precommit": "lint-staged",
     "lint": "tslint -p . -t stylish",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "storybook": "start-storybook -p 9001 -c .storybook -s node_modules/monaco-editor/min"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,17 @@
     "@angular/core": "^6.1.7",
     "@angular/forms": "^6.1.7",
     "@angular/platform-browser": "^6.1.7",
+    "@angular/platform-browser-dynamic": "^6.1.8",
+    "@storybook/addon-actions": "^3.4.10",
+    "@storybook/addon-knobs": "^3.4.10",
+    "@storybook/addon-links": "^3.4.10",
+    "@storybook/addon-options": "^3.4.10",
+    "@storybook/addons": "^3.4.10",
+    "@storybook/angular": "^3.4.10",
+    "@storybook/cli": "^3.4.10",
     "@types/lodash": "^4.14.116",
+    "@types/storybook__addon-actions": "^3.4.1",
+    "@types/storybook__addon-knobs": "^3.4.1",
     "css-element-queries": "^1.0.2",
     "husky": "^0.14.3",
     "lint-staged": "^7.2.2",
