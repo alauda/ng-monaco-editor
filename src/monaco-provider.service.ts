@@ -83,6 +83,9 @@ export class MonacoProviderService {
     };
   }
 
+  /**
+   * Create a code-editor at the given dom element.
+   */
   create(
     domElement: HTMLElement,
     options?: import('monaco-editor').editor.IEditorConstructionOptions,
@@ -106,7 +109,7 @@ export class MonacoProviderService {
 
     const diffOptions = {
       renderSideBySide: false,
-      // You can optionally disable the resizing
+      // You can optionally disable resizing by passing in the option.
       enableSplitViewResizing: false,
       ...(this.getEditorOptions(
         options,
@@ -116,10 +119,13 @@ export class MonacoProviderService {
     return this.monaco.editor.createDiffEditor(domElement, diffOptions);
   }
 
+  /**
+   * Colorize an abitrary element:
+   */
   colorizeElement(
     domElement: HTMLElement,
     options?: import('monaco-editor').editor.IColorizerElementOptions,
-  ): import('monaco-editor').Promise<void, any> {
+  ) {
     if (!this.monaco) {
       return;
     }
@@ -130,6 +136,9 @@ export class MonacoProviderService {
     });
   }
 
+  /**
+   * Let the monaco-editor returns language information for the given alias.
+   */
   getLanguageExtensionPoint(
     alias: string,
   ): import('monaco-editor').languages.ILanguageExtensionPoint {
