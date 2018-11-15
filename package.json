@@ -1,7 +1,8 @@
 {
   "name": "ng-monaco-editor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
+  "description": "Angular wrapper for monaco-editor",
   "scripts": {
     "build": "yarn build:clean && ng-packagr -p ng-package.json",
     "build:clean": "yarn rimraf ./release",
