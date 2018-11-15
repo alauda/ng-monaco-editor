@@ -1,16 +1,20 @@
 # Angular wrapper for monaco-editor
 
 ## Dependencies
+
 - Angular 7+
 - monaco-editor: 1.5+
 
 ## Setup
+
 ### Add npm dependencies
+
 ```
 yarn add monaco-editor ng-monaco-editor
 ```
 
-### Configure monaco-editor library assets 
+### Configure monaco-editor library assets
+
 Currently this library only supports load monaco-editor with AMD mode. You have
 to make sure your Angular application could have access to the monaco-editor library
 assets via RequireJS.
@@ -31,12 +35,12 @@ If you are using Angular CLI to bootstrap your app, you could add the following:
 ```
 
 ### Load ng-monaco-editor module
+
 Most of the time, you should configure the module at the root module.
+
 ```ts
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -56,16 +60,24 @@ Most of the time, you should configure the module at the root module.
       useClass: CustomMonacoProviderService,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}
 ```
 
 ### Usage example
+
 Please refer to the storybook (`stores/index.ts`).
 This module provide three usages:
 
 1. `ng-monaco-editor` component
-2. `ng-diff-monaco-editor` component
+2. `ng-monaco-diff-editor` component
 3. `ngCodeColorize` directive
+
+Note, if the height of ng-monaco-editor/ng-monaco-diff-editor is too small, you
+may have to resize it yourself. This is a limitation and by design
+that how monaco-editor works.
+
+# License
+
+MIT @[Peng Xiao](https://github.com/pengx17)

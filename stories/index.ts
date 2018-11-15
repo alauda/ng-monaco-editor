@@ -2,8 +2,7 @@ import { withKnobs } from '@storybook/addon-knobs/angular';
 import { storiesOf } from '@storybook/angular';
 import { MonacoEditorModule } from '../src/public-api';
 
-const exampleCode = `
-apiVersion: v1
+const exampleCode = `apiVersion: v1
 kind: Pod
 metadata:
   name: frontend
@@ -34,7 +33,7 @@ spec:
 
 storiesOf('Code Editor', module)
   .addDecorator(withKnobs)
-  .add('simple monaco editor', () => {
+  .add('monaco editor', () => {
     const model = exampleCode;
     return {
       moduleMetadata: {
@@ -46,9 +45,9 @@ storiesOf('Code Editor', module)
         ],
       },
       template: `
-      <h1>原始代码</h1>
-      <textarea cols="80" rows="10" [(ngModel)]="model">{{ exampleCode }}</textarea>
-      <h1>编辑器</h1>
+      <h1>Raw</h1>
+      <textarea cols="80" rows="10" [(ngModel)]="model"></textarea>
+      <h1>ng-monaco-editor</h1>
       <ng-monaco-editor style="height: 300px" [options]="options" [(ngModel)]="model"></ng-monaco-editor>
       `,
       props: {
@@ -58,6 +57,36 @@ storiesOf('Code Editor', module)
           minimap: { enabled: true },
         },
         model,
+      },
+    };
+  })
+  .add('monaco diff editor', () => {
+    const model = exampleCode;
+    const originalModel = exampleCode;
+    return {
+      moduleMetadata: {
+        imports: [
+          MonacoEditorModule.forRoot({
+            baseUrl: '',
+            defaultOptions: {},
+          }),
+        ],
+      },
+      template: `
+      <h1>Raw</h1>
+      <textarea cols="80" rows="10" [(ngModel)]="model"></textarea>
+      <h1>ng-monaco-diff-editor</h1>
+      <ng-monaco-diff-editor style="height: 300px" [originalValue]="originalModel"
+       [options]="options" [(ngModel)]="model"></ng-monaco-diff-editor>
+      `,
+      props: {
+        options: {
+          language: 'yaml',
+          folding: true,
+          minimap: { enabled: true },
+        },
+        model,
+        originalModel,
       },
     };
   })
