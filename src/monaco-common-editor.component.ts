@@ -74,6 +74,12 @@ export abstract class MonacoCommonEditorComponent
   monacoEditorChanged = new EventEmitter();
 
   /**
+   * Events emitted when monaco editor blurs.
+   */
+  @Output()
+  blur = new EventEmitter();
+
+  /**
    * A helper ID to let the user to see the embedded monaco editor ID.
    *
    * E.g., you could use the following to get the embedded value of the editor.
@@ -234,6 +240,7 @@ export abstract class MonacoCommonEditorComponent
     this.disposables.push(
       this.editor.onDidBlurEditorWidget(() => {
         this.onTouched();
+        this.blur.emit();
       }),
     );
   }
