@@ -4,7 +4,6 @@ import {
   Component,
   forwardRef,
   Input,
-  NgZone,
   OnChanges,
   OnDestroy,
   SimpleChanges,
@@ -43,13 +42,12 @@ export class MonacoDiffEditorComponent extends MonacoCommonEditorComponent
   originalValue: string;
 
   constructor(
-    zone: NgZone,
     monacoEditorConfig: MonacoEditorConfig,
     monacoProvider: MonacoProviderService,
     cdr: ChangeDetectorRef,
     resizeSensor: ResizeSensorService,
   ) {
-    super(zone, monacoEditorConfig, monacoProvider, cdr, resizeSensor);
+    super(monacoEditorConfig, monacoProvider, cdr, resizeSensor);
   }
 
   createEditor(): import('monaco-editor').editor.IStandaloneCodeEditor {

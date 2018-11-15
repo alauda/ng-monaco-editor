@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   forwardRef,
-  NgZone,
   ViewEncapsulation,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -33,13 +32,12 @@ import { ResizeSensorService } from './resize-sensor.service';
 })
 export class MonacoEditorComponent extends MonacoCommonEditorComponent {
   constructor(
-    zone: NgZone,
     monacoEditorConfig: MonacoEditorConfig,
     monacoProvider: MonacoProviderService,
     cdr: ChangeDetectorRef,
     resizeSensor: ResizeSensorService,
   ) {
-    super(zone, monacoEditorConfig, monacoProvider, cdr, resizeSensor);
+    super(monacoEditorConfig, monacoProvider, cdr, resizeSensor);
   }
 
   createEditor(): import('monaco-editor').editor.IStandaloneCodeEditor {

@@ -6,7 +6,6 @@ import {
   EventEmitter,
   HostBinding,
   Input,
-  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -46,6 +45,7 @@ export abstract class MonacoCommonEditorComponent
   protected editor: import('monaco-editor').editor.IStandaloneCodeEditor;
   private relayoutFunction: any;
   private resizeSensorInstance: ResizeSensor;
+  private disposables: Array<import('monaco-editor').IDisposable> = [];
 
   monacoLoaded = false;
 
@@ -102,7 +102,6 @@ export abstract class MonacoCommonEditorComponent
   }
 
   constructor(
-    protected zone: NgZone,
     protected monacoEditorConfig: MonacoEditorConfig,
     protected monacoProvider: MonacoProviderService,
     protected cdr: ChangeDetectorRef,
@@ -159,8 +158,10 @@ export abstract class MonacoCommonEditorComponent
     if (this.model && !this.model.isDisposed()) {
       this.model.dispose();
     }
+    this.disposables.forEach(disposable => disposable.dispose());
     this.editor = null;
     this.model = null;
+    this.disposables = [];
   }
 
   // Following are APIs required by ControlValueAccessor
@@ -211,20 +212,30 @@ export abstract class MonacoCommonEditorComponent
   }
 
   private listenModelChanges(): void {
-    this.model.onDidChangeContent(() => {
-      const value = this.model.getValue();
-      if (this._value === value) {
-        return;
-      }
-      this.onChange(value);
+    this.disposables = [];
+    this.disposables.push(
+      this.model.onDidChangeContent(() => {
+        const value = this.model.getValue();
+        if (this._value === value) {
+          return;
+        }
+        this.onChange(value);
+        this._value = value;
+        this.cdr.markForCheck();
+      }),
+    );
 
-      // value is not propagated to parent when executing outside zone.
-      this.zone.run(() => (this._value = value));
-    });
+    this.disposables.push(
+      this.editor.onDidChangeModel(() => {
+        this.cdr.markForCheck();
+      }),
+    );
 
-    this.editor.onDidChangeModel(() => {
-      this.cdr.markForCheck();
-    });
+    this.disposables.push(
+      this.editor.onDidBlurEditorWidget(() => {
+        this.onTouched();
+      }),
+    );
   }
 
   private updateEditorValue(value: string): void {
