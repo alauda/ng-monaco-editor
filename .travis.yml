@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - lts/*
+cache: yarn
+install:
+  - yarn
+  - yarn build
+script:
+  - echo "npm test disabled"
+before_deploy:
+  # We would publish "release" folder instead
+  - cd release
+deploy:
+  provider: npm
+  email: pengxiao@outlook.com
+  skip_cleanup: true
+  api_key:
+    secure: FKRAI653pPZ0C9J6c4nKZPaouLZ/JuTIsjRLmRCV9p72c7LAOTwF8rsxe1NWIiDaC8rY2qC0IQd29PJ5OpB4XiqzHqvrPnqypb69Ywx0Wd5GWIJfPEOGN8hSiqydidROtNve/WRp9uPZ7+CmcoqESiPOF0TTyW/u8T1GKr338wAx1vRzFiE9a5DcnscXflWNVBW5T2qSJBi2Ylw044/pJy7hGmqKwf6PJrvRZEmkIyXm1A61T0A4kMbttDGYZD1oqAA9KJJqhvZ1fA/PJq9kek4pXTA90c56Z7qOyRu3+Z/0uX46/t3IUaN0XvjwZCjWBtGLTu+kKJ/FU+rNQ8nSqKH3lUo8w+wU1U6sr+2BM1h3cVMh82ZEFVGbpOYlkCl/YYHq7V/HNJghnyB6lOzh/wBZhOGu9I7uuUXHoTui/+NOg1kJ1NO3+EfbKHUV+2ezrlQ+T6u5/uQpEh4BX4FsdWeEG9EEBVLp9q9upShxfH/njpp7BMPjqTSvldUUBvoKwk3Pg2PKnGQ5dUhShXaauS3wP5lMIXnE4NlaUF7fZX1U1OGq+ftmtfSrnYc2YHddz5Ya6FKoFE1Wt9vkNsWLdSAA49TMMh6TjTOT+lXMZnJnNrLhdCpxDfpzL1s4yWC+/rB9Z5dqXoi8VkMWQIYG8F3p9pymQJ2sKNH2v2SM1LE=
+  on:
+    branch: master
+    tags: true
+    repo: pengx17/ng-monaco-editor

@@ -1,6 +1,6 @@
 {
   "name": "ng-monaco-editor",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "description": "Angular wrapper for monaco-editor",
   "scripts": {
@@ -8,8 +8,9 @@
     "build:clean": "yarn rimraf ./release",
     "precommit": "lint-staged",
     "lint": "tslint -p . -t stylish",
-    "lint:fix": "npm run lint -- --fix",
-    "storybook": "start-storybook -p 9001 -c .storybook -s node_modules/monaco-editor/dev"
+    "lint:fix": "yarn lint -- --fix",
+    "storybook": "start-storybook -p 9001 -c .storybook -s node_modules/monaco-editor/dev",
+    "test": ""
   },
   "repository": {
     "type": "git",
