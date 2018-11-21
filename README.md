@@ -1,5 +1,6 @@
 # Angular wrapper for monaco-editor
-
+![img](https://travis-ci.org/pengx17/ng-monaco-editor.svg?branch=master)
+![img](https://badge.fury.io/js/ng-monaco-editor.svg)
 ## Dependencies
 
 - Angular 7+
