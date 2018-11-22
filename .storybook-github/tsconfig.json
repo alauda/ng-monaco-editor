@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compileOnSave": true,
+  "compilerOptions": {
+    "declaration": false,
+    "noImplicitAny": false
+  },
+  "include": ["../stories/**/*.ts"]
+}
