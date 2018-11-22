@@ -31,6 +31,7 @@
     "@storybook/angular": "^4.0.8",
     "@storybook/cli": "^4.0.8",
     "@types/lodash": "^4.14.116",
+    "babel-loader": "^8.0.4",
     "css-element-queries": "^1.0.2",
     "husky": "^1.2.0",
     "lint-staged": "^8.1.0",
