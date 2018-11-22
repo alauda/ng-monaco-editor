@@ -178,7 +178,10 @@ export class MonacoProviderService {
 
           const loaderScript = document.createElement('script');
           loaderScript.type = 'text/javascript';
-          loaderScript.src = `${this.monacoEditorConfig.baseUrl}/vs/loader.js`;
+          loaderScript.src = [
+            this.monacoEditorConfig.baseUrl,
+            'vs/loader.js',
+          ].join('/');
           loaderScript.addEventListener('load', () => onAmdLoader());
           loaderScript.addEventListener('error', error =>
             onAmdLoaderError(error),
