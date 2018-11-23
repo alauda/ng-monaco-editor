@@ -1,6 +1,6 @@
 {
   "name": "ng-monaco-editor",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "license": "MIT",
   "description": "Angular wrapper for monaco-editor",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pengx17/ng-monaco-editor"
+    "url": "https://github.com/alauda/ng-monaco-editor"
   },
   "author": {
     "email": "pengxiao@outlook.com",

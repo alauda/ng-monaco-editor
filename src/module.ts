@@ -27,7 +27,6 @@ export function MONACO_PROVIDER_FACTORY(
   return parent || new MonacoProviderService(monacoEditorConfig);
 }
 
-/** @docs-private */
 export const MONACO_PROVIDER = {
   // If there is already an CodeEditorIntl available, use that. Otherwise, provide a new one.
   provide: MonacoProviderService,
@@ -42,7 +41,6 @@ export function RESIZE_SENSOR_PROVIDER_FACTORY(parent: ResizeSensorService) {
   return parent || new ResizeSensorService();
 }
 
-/** @docs-private */
 export const RESIZE_SENSOR_PROVIDER = {
   // If there is already an CodeEditorIntl available, use that. Otherwise, provide a new one.
   provide: ResizeSensorService,

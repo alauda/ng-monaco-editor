@@ -10,7 +10,7 @@ import { MonacoProviderService } from './monaco-provider.service';
 
 /**
  * Colorize a section of code with Monaco Editor.
- * TODO: rerender element when content changes:
+ * TODO: rerender element when content changes. #2
  */
 @Directive({
   selector: '[ngCodeColorize]',
