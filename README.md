@@ -7,7 +7,7 @@
 - monaco-editor: 1.5+
 
 ## Demo
-See: [https://pengx17.github.io/ng-monaco-editor/demo/](https://pengx17.github.io/ng-monaco-editor/demo/)
+See: [https://alauda.github.io/ng-monaco-editor/demo/](https://alauda.github.io/ng-monaco-editor/demo/)
 
 ## Setup
 
@@ -84,4 +84,4 @@ that how monaco-editor works.
 
 # License
 
-MIT @[Peng Xiao](https://github.com/pengx17)
+MIT @[Alauda](https://github.com/alauda)
