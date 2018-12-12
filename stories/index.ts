@@ -1,4 +1,6 @@
+import { object, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/angular';
+
 import { MonacoEditorModule } from '../src/public-api';
 
 const exampleCode = `apiVersion: v1
@@ -31,8 +33,14 @@ spec:
 `;
 
 storiesOf('Code Editor', module)
+  .addDecorator(withKnobs)
   .add('monaco editor', () => {
     const model = exampleCode;
+    const options = object('options', {
+      folding: true,
+      minimap: { enabled: false },
+      readOnly: false,
+    });
     return {
       moduleMetadata: {
         imports: [
@@ -49,10 +57,7 @@ storiesOf('Code Editor', module)
       <ng-monaco-editor style="height: 300px" modelUri="file:text.yaml" [options]="options" [(ngModel)]="model"></ng-monaco-editor>
       `,
       props: {
-        options: {
-          folding: true,
-          minimap: { enabled: true },
-        },
+        options,
         model,
       },
     };
@@ -60,6 +65,11 @@ storiesOf('Code Editor', module)
   .add('monaco diff editor', () => {
     const model = exampleCode;
     const originalModel = exampleCode;
+    const options = object('options', {
+      folding: true,
+      minimap: { enabled: false },
+      readOnly: false,
+    });
     return {
       moduleMetadata: {
         imports: [
@@ -77,10 +87,7 @@ storiesOf('Code Editor', module)
        [options]="options" [(ngModel)]="model"></ng-monaco-diff-editor>
       `,
       props: {
-        options: {
-          folding: true,
-          minimap: { enabled: true },
-        },
+        options,
         model,
         originalModel,
       },
