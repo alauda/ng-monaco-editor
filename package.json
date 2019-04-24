@@ -41,7 +41,7 @@
     "@types/storybook__addon-options": "^4.0.0",
     "babel-loader": "^8.0.4",
     "css-element-queries": "^1.0.2",
-    "husky": "^1.2.0",
+    "husky": "^2.0.0",
     "lint-staged": "^8.1.0",
     "lodash": "^4.17.11",
     "lodash.debounce": "^4.0.8",
