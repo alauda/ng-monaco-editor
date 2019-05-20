@@ -11,8 +11,7 @@
     "noUnusedParameters": true,
     "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": true,
-    "stripInternal": true,
-    "esModuleInterop": true
+    "stripInternal": true
   },
   "exclude": ["release", "dist", "node_modules"]
 }
