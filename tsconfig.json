@@ -1,18 +1,19 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
+    "baseUrl": ".",
+    "target": "es2015",
+    "module": "es2015",
     "moduleResolution": "node",
-    "lib": ["es2017", "dom"],
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "suppressImplicitAnyIndexErrors": true,
+    "declaration": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "skipLibCheck": true,
-    "stripInternal": true,
-    "esModuleInterop": true
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "lib": ["dom", "es2018"],
+    "allowSyntheticDefaultImports": true
   },
   "exclude": ["release", "dist", "node_modules"]
 }

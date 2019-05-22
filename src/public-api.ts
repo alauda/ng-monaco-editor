@@ -1,3 +1,5 @@
+/// <reference path="./typings.d.ts" />
+
 export * from './monaco-editor.component';
 export * from './monaco-diff-editor.component';
 export * from './monaco-common-editor.component';

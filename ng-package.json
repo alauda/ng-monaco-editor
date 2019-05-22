@@ -3,7 +3,12 @@
   "dest": "./release",
   "lib": {
     "entryFile": "src/public-api.ts",
-    "languageLevel": ["dom", "es2017"]
+    "languageLevel": ["dom", "es2017"],
+    "umdModuleIds": {
+      "css-element-queries": "cssElementQueries",
+      "lodash.debounce": "lodashDebounce",
+      "lodash.isequal": "lodashIsEqual"
+    }
   },
-  "whitelistedNonPeerDependencies": ["."]
+  "whitelistedNonPeerDependencies": ["tslib", "css-element-queries", "lodash"]
 }
