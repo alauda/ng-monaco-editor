@@ -1,10 +1,10 @@
 {
   "name": "ng-monaco-editor",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "license": "MIT",
   "description": "Angular wrapper for monaco-editor",
   "scripts": {
-    "build": "yarn build:clean && ng-packagr -p ng-package.json",
+    "build": "yarn build:clean && node ./build.js",
     "build:clean": "yarn rimraf ./release",
     "precommit": "lint-staged",
     "lint": "tslint -p . -t stylish",
@@ -35,7 +35,8 @@
     "@storybook/addon-options": "^4.0.12",
     "@storybook/angular": "^4.0.8",
     "@storybook/cli": "^4.0.8",
-    "@types/lodash": "^4.14.116",
+    "@types/lodash.debounce": "^4.0.6",
+    "@types/lodash.isequal": "^4.5.5",
     "@types/storybook__addon-actions": "^3.4.1",
     "@types/storybook__addon-knobs": "^4.0.0",
     "@types/storybook__addon-options": "^4.0.0",
@@ -43,8 +44,9 @@
     "css-element-queries": "^1.0.2",
     "husky": "^1.2.0",
     "lint-staged": "^8.1.0",
-    "lodash": "^4.17.11",
-    "monaco-editor": "^0.15.2",
+    "lodash.debounce": "^4.0.8",
+    "lodash.isequal": "^4.5.0",
+    "monaco-editor": "^0.17.0",
     "ng-packagr": "^5.0.0",
     "node-sass": "^4.12.0",
     "prettier": "^1.15.2",
@@ -65,7 +67,7 @@
     "lodash.isequal": "^4.5.0"
   },
   "peerDependencies": {
-    "monaco-editor": "^0.15.2",
+    "monaco-editor": "^0.17.0",
     "zone.js": "^0.8.26"
   }
 }

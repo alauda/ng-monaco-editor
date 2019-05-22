@@ -3,12 +3,12 @@ declare module 'css-element-queries' {
   export { ResizeSensor };
 }
 
-declare module 'lodash/debounce' {
-  import { debounce } from 'lodash';
-  export default debounce;
-}
+// declare module 'lodash.debounce' {
+//   import { debounce } from 'lodash/debounce';
+//   export default debounce;
+// }
 
-declare module 'lodash/isEqual' {
-  import { isEqual } from 'lodash';
-  export = isEqual;
-}
+// declare module 'lodash.isequal' {
+//   import { isEqual } from 'lodash/isEqual';
+//   export default isEqual;
+// }
