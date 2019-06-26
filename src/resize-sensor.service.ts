@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ResizeSensor } from 'css-element-queries';
+import { ResizeSensor, ResizeSensorCallback } from 'css-element-queries';
 
 @Injectable()
 export class ResizeSensorService {
-  registerResize(element: any, onResize: () => void): ResizeSensor {
+  registerResize(
+    element: Element | Element[],
+    onResize: ResizeSensorCallback,
+  ): ResizeSensor {
     return new ResizeSensor(element, onResize);
   }
 }

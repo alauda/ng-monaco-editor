@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+
 import { MonacoProviderService } from './monaco-provider.service';
 
 /**
@@ -39,10 +40,10 @@ export class CodeColorizeDirective implements OnInit, OnDestroy {
   }
 
   private async doColorize() {
-    await this.monacoProvider.initMonaco();
     if (this.destroyed) {
       return;
     }
+    await this.monacoProvider.initMonaco();
     return this.monacoProvider.colorizeElement(
       this.element.nativeElement,
       this.ngCodeColorizeOptions,

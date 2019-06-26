@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/angular';
 
 import { MonacoEditorModule } from '../src/public-api';
 
-const exampleCode = `apiVersion: v1
+const exampleCode = /* YAML */ `apiVersion: v1
 kind: Pod
 metadata:
   name: frontend
@@ -50,11 +50,16 @@ storiesOf('Code Editor', module)
           }),
         ],
       },
-      template: `
-      <h1>Raw</h1>
-      <textarea cols="80" rows="10" [(ngModel)]="model"></textarea>
-      <h1>ng-monaco-editor</h1>
-      <ng-monaco-editor style="height: 300px" modelUri="file:text.yaml" [options]="options" [(ngModel)]="model"></ng-monaco-editor>
+      template: /* HTML */ `
+        <h1>Raw</h1>
+        <textarea cols="80" rows="10" [(ngModel)]="model"></textarea>
+        <h1>ng-monaco-editor</h1>
+        <ng-monaco-editor
+          style="height: 300px"
+          modelUri="file:text.yaml"
+          [options]="options"
+          [(ngModel)]="model"
+        ></ng-monaco-editor>
       `,
       props: {
         options,
@@ -79,17 +84,26 @@ storiesOf('Code Editor', module)
           }),
         ],
       },
-      template: `
-      <h1>Raw</h1>
-      <textarea cols="80" rows="10" [(ngModel)]="model"></textarea>
-      <h1>ng-monaco-diff-editor</h1>
-      <ng-monaco-diff-editor style="height: 300px" modelUri="file:text.yaml" [originalValue]="originalModel"
-       [options]="options" [(ngModel)]="model"></ng-monaco-diff-editor>
+      template: /* HTML */ `
+        <h1>Raw</h1>
+        <button (click)="toggleOptions()">Toggle Options</button>
+        <textarea cols="80" rows="10" [(ngModel)]="model"></textarea>
+        <h1>ng-monaco-diff-editor</h1>
+        <ng-monaco-diff-editor
+          style="height: 300px"
+          modelUri="file:text.yaml"
+          [originalValue]="originalModel"
+          [options]="options"
+          [(ngModel)]="model"
+        ></ng-monaco-diff-editor>
       `,
       props: {
         options,
         model,
         originalModel,
+        toggleOptions() {
+          this.options = { ...this.options, whatever: !this.options.whatever };
+        },
       },
     };
   })
@@ -103,7 +117,11 @@ storiesOf('Code Editor', module)
           }),
         ],
       },
-      template: `<pre style="font-family: Consolas, 'Courier New', monospace;"><code ngCodeColorize="yaml">{{ code }}</code></pre>`,
+      template: /* HTML */ `
+        <pre
+          style="font-family: Consolas, 'Courier New', monospace;"
+        ><code ngCodeColorize="yaml">{{ code }}</code></pre>
+      `,
       props: {
         code: exampleCode,
       },
