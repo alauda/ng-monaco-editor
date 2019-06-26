@@ -47,6 +47,8 @@ export abstract class MonacoCommonEditorComponent
   private resizeSensorInstance: ResizeSensor;
   private disposables: Array<import('monaco-editor').IDisposable> = [];
 
+  monacoLoaded = false;
+
   @ViewChild('monacoContainer')
   protected monacoContainer: ElementRef;
   @ViewChild('monacoAnchor')
@@ -202,6 +204,7 @@ export abstract class MonacoCommonEditorComponent
 
   private async initEditor() {
     await this.monacoProvider.initMonaco();
+    this.monacoLoaded = true;
 
     this.dispose();
 
