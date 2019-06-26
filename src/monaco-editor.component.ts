@@ -13,7 +13,7 @@ import { MonacoProviderService } from './monaco-provider.service';
 import { ResizeSensorService } from './resize-sensor.service';
 
 /**
- * Wraps Monaco Editor for simpilicity use in Angular.
+ * Wraps Monaco Editor for simplicity use in Angular.
  */
 @Component({
   selector: 'ng-monaco-editor',

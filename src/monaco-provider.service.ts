@@ -122,7 +122,7 @@ export class MonacoProviderService {
   }
 
   /**
-   * Colorize an abitrary element:
+   * Colorize an arbitrary element:
    */
   colorizeElement(
     domElement: HTMLElement,
@@ -150,7 +150,7 @@ export class MonacoProviderService {
     return this.monaco.languages
       .getLanguages()
       .find(
-        (language: any) =>
+        language =>
           (language.aliases && language.aliases.includes(alias)) ||
           language.id === alias,
       );
@@ -162,32 +162,30 @@ export class MonacoProviderService {
   protected configRequireJs() {
     return new Promise((resolve, reject) => {
       if (this.monaco) {
-        resolve();
-      } else {
-        const onAmdLoader = () => {
-          this.require.config({
-            baseUrl: this.monacoEditorConfig.baseUrl,
-            paths: { vs: 'vs' },
-          });
-          resolve();
-        };
-
-        const onAmdLoaderError = (error: ErrorEvent) => {
-          console.error('failed to load monaco', error);
-          reject(error);
-        };
-
-        const loaderScript = document.createElement('script');
-        loaderScript.type = 'text/javascript';
-        loaderScript.src = [this.monacoEditorConfig.baseUrl, 'vs/loader.js']
-          .filter(p => !!p)
-          .join('/');
-        loaderScript.addEventListener('load', () => onAmdLoader());
-        loaderScript.addEventListener('error', error =>
-          onAmdLoaderError(error),
-        );
-        document.body.appendChild(loaderScript);
+        return resolve();
       }
+
+      const onAmdLoader = () => {
+        this.require.config({
+          baseUrl: this.monacoEditorConfig.baseUrl,
+          paths: { vs: 'vs' },
+        });
+        resolve();
+      };
+
+      const onAmdLoaderError = (error: ErrorEvent) => {
+        console.error('failed to load monaco', error);
+        reject(error);
+      };
+
+      const loaderScript = document.createElement('script');
+      loaderScript.type = 'text/javascript';
+      loaderScript.src = [this.monacoEditorConfig.baseUrl, 'vs/loader.js']
+        .filter(p => !!p)
+        .join('/');
+      loaderScript.addEventListener('load', onAmdLoader);
+      loaderScript.addEventListener('error', onAmdLoaderError);
+      document.body.appendChild(loaderScript);
     });
   }
 }
