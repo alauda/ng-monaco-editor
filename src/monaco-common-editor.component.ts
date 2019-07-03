@@ -14,7 +14,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { ResizeSensor } from 'css-element-queries';
+import { ResizeSensor, ResizeSensorCallback } from 'css-element-queries';
 import { debounce, isEqual } from 'lodash-es';
 
 import {
