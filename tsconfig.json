@@ -15,5 +15,8 @@
     "lib": ["dom", "es2018"],
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["release", "dist", "node_modules"]
+  "exclude": ["release", "dist", "node_modules"],
+  "angularCompilerOptions": {
+    "disableTypeScriptVersionCheck": true
+  }
 }
