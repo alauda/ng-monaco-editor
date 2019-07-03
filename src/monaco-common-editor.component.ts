@@ -14,7 +14,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { ResizeSensor } from 'css-element-queries';
+import { ResizeSensor, ResizeSensorCallback } from 'css-element-queries';
 import debounce from 'lodash.debounce';
 import isEqual from 'lodash.isequal';
 
@@ -28,7 +28,7 @@ import { ResizeSensorService } from './resize-sensor.service';
 const DEFAULT_RELAYOUT_INTERVAL = 100;
 
 /**
- * Wraps powerful Monaco Editor for simpilicity use in Angular.
+ * Wraps powerful Monaco Editor for simplicity use in Angular.
  */
 export abstract class MonacoCommonEditorComponent
   implements
@@ -43,7 +43,7 @@ export abstract class MonacoCommonEditorComponent
   protected _prevOptions: MonacoEditorOptions;
   protected destroyed = false;
   protected editor: import('monaco-editor').editor.IStandaloneCodeEditor;
-  private relayoutFunction: any;
+  private relayoutFunction: ResizeSensorCallback;
   private resizeSensorInstance: ResizeSensor;
   private disposables: Array<import('monaco-editor').IDisposable> = [];
 

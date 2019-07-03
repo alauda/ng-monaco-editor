@@ -5,8 +5,6 @@ import {
   MonacoEditorOptions,
 } from './monaco-editor-config';
 
-let fetchingPromise: Promise<any> = null;
-
 /**
  * Provider for monaco editor.
  */
@@ -14,13 +12,17 @@ let fetchingPromise: Promise<any> = null;
 export class MonacoProviderService {
   constructor(private monacoEditorConfig: MonacoEditorConfig) {}
 
-  private _theme: string = this.themes[0];
+  private _theme = this.themes[0];
 
-  async initMonaco(): Promise<any> {
+  private _loadingPromise: Promise<void>;
+
+  async initMonaco() {
+    return this._loadingPromise || (this._loadingPromise = this.loadMonaco());
+  }
+
+  private async loadMonaco() {
     await this.configRequireJs();
     await this.loadModule(['vs/editor/editor.main']);
-
-    return fetchingPromise;
   }
 
   /**
@@ -120,7 +122,7 @@ export class MonacoProviderService {
   }
 
   /**
-   * Colorize an abitrary element:
+   * Colorize an arbitrary element:
    */
   colorizeElement(
     domElement: HTMLElement,
@@ -148,7 +150,7 @@ export class MonacoProviderService {
     return this.monaco.languages
       .getLanguages()
       .find(
-        (language: any) =>
+        language =>
           (language.aliases && language.aliases.includes(alias)) ||
           language.id === alias,
       );
@@ -158,37 +160,32 @@ export class MonacoProviderService {
    * Currently monaco-editor is loaded via its only loader and it is RequireJs (amd) spec:
    */
   protected configRequireJs() {
-    if (!fetchingPromise) {
-      fetchingPromise = new Promise((resolve, reject) => {
-        if (this.monaco) {
-          resolve();
-        } else {
-          const onAmdLoader = () => {
-            this.require.config({
-              baseUrl: this.monacoEditorConfig.baseUrl,
-              paths: { vs: 'vs' },
-            });
-            resolve();
-          };
+    return new Promise((resolve, reject) => {
+      if (this.monaco) {
+        return resolve();
+      }
 
-          const onAmdLoaderError = (error: ErrorEvent) => {
-            console.error('failed to load monaco', error);
-            reject(error);
-          };
+      const onAmdLoader = () => {
+        this.require.config({
+          baseUrl: this.monacoEditorConfig.baseUrl,
+          paths: { vs: 'vs' },
+        });
+        resolve();
+      };
 
-          const loaderScript = document.createElement('script');
-          loaderScript.type = 'text/javascript';
-          loaderScript.src = [this.monacoEditorConfig.baseUrl, 'vs/loader.js']
-            .filter(p => !!p)
-            .join('/');
-          loaderScript.addEventListener('load', () => onAmdLoader());
-          loaderScript.addEventListener('error', error =>
-            onAmdLoaderError(error),
-          );
-          document.body.appendChild(loaderScript);
-        }
-      });
-    }
-    return fetchingPromise;
+      const onAmdLoaderError = (error: ErrorEvent) => {
+        console.error('failed to load monaco', error);
+        reject(error);
+      };
+
+      const loaderScript = document.createElement('script');
+      loaderScript.type = 'text/javascript';
+      loaderScript.src = [this.monacoEditorConfig.baseUrl, 'vs/loader.js']
+        .filter(p => !!p)
+        .join('/');
+      loaderScript.addEventListener('load', onAmdLoader);
+      loaderScript.addEventListener('error', onAmdLoaderError);
+      document.body.appendChild(loaderScript);
+    });
   }
 }
