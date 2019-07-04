@@ -43,6 +43,7 @@
       },
       "src/**/!(*.spec).ts"
     ],
-    "deprecation": { "severity": "warning" }
+    "deprecation": { "severity": "warning" },
+    "use-component-view-encapsulation": false
   }
 }

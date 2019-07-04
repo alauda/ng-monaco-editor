@@ -15,8 +15,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { ResizeSensor, ResizeSensorCallback } from 'css-element-queries';
-import debounce from 'lodash.debounce';
-import isEqual from 'lodash.isequal';
+import { debounce, isEqual } from 'lodash-es';
 
 import {
   MonacoEditorConfig,
@@ -49,9 +48,9 @@ export abstract class MonacoCommonEditorComponent
 
   monacoLoaded = false;
 
-  @ViewChild('monacoContainer')
+  @ViewChild('monacoContainer', { static: true })
   protected monacoContainer: ElementRef;
-  @ViewChild('monacoAnchor')
+  @ViewChild('monacoAnchor', { static: true })
   protected monacoAnchor: ElementRef;
 
   /**

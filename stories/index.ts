@@ -40,6 +40,7 @@ storiesOf('Code Editor', module)
       folding: true,
       minimap: { enabled: false },
       readOnly: false,
+      language: 'yaml',
     });
     return {
       moduleMetadata: {

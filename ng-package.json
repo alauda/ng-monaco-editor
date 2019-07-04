@@ -6,8 +6,7 @@
     "languageLevel": ["dom", "es2017"],
     "umdModuleIds": {
       "css-element-queries": "cssElementQueries",
-      "lodash.debounce": "lodashDebounce",
-      "lodash.isequal": "lodashIsEqual"
+      "lodash-es": "_"
     }
   },
   "whitelistedNonPeerDependencies": ["tslib", "css-element-queries", "lodash"]
