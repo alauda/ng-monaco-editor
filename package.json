@@ -46,7 +46,7 @@
     "husky": "^3.0.0",
     "lint-staged": "^9.0.2",
     "lodash-es": "^4.17.11",
-    "monaco-editor": "^0.17.1",
+    "monaco-editor": "^0.18.0",
     "ng-packagr": "^5.3.0",
     "node-sass": "^4.12.0",
     "prettier": "^1.18.2",
