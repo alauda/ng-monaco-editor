@@ -37,7 +37,7 @@
     "@storybook/cli": "^5.1.9",
     "@types/lodash.debounce": "^4.0.6",
     "@types/lodash.isequal": "^4.5.5",
-    "@types/storybook__addon-actions": "^3.4.3",
+    "@types/storybook__addon-actions": "^5.2.0",
     "@types/storybook__addon-knobs": "^5.0.2",
     "@types/storybook__addon-options": "^4.0.2",
     "babel-loader": "^8.0.4",
