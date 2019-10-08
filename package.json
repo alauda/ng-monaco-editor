@@ -39,7 +39,7 @@
     "@types/lodash.isequal": "^4.5.5",
     "@types/storybook__addon-actions": "^3.4.3",
     "@types/storybook__addon-knobs": "^5.0.2",
-    "@types/storybook__addon-options": "^4.0.2",
+    "@types/storybook__addon-options": "^5.2.0",
     "babel-loader": "^8.0.4",
     "codelyzer": "^5.1.0",
     "css-element-queries": "^1.0.2",
