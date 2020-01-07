@@ -23,6 +23,7 @@ export class MonacoProviderService {
   private async loadMonaco() {
     await this.configRequireJs();
     await this.loadModule(['vs/editor/editor.main']);
+    await this.registerLanguage();
   }
 
   /**
@@ -154,6 +155,26 @@ export class MonacoProviderService {
           (language.aliases && language.aliases.includes(alias)) ||
           language.id === alias,
       );
+  }
+
+  async registerLanguage() {
+    if (!this.monaco) {
+      return;
+    } else {
+      const tokenizer = await import('monaco-ace-tokenizer');
+      await Promise.all(
+        tokenizer.AVAILABLE_LANGUAGES.map(lang =>
+          import(`monaco-ace-tokenizer/dist/definitions/${lang}`).then(
+            rules => {
+              this.monaco.languages.register({
+                id: lang,
+              });
+              tokenizer.registerRulesForLanguage(lang, new rules.default());
+            },
+          ),
+        ),
+      );
+    }
   }
 
   /**

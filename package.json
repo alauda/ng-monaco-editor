@@ -62,12 +62,13 @@
     "zone.js": "^0.9.1"
   },
   "dependencies": {
-    "css-element-queries": "^1.0.2"
+    "css-element-queries": "^1.0.2",
+    "monaco-ace-tokenizer": "^0.1.1"
   },
   "peerDependencies": {
+    "lodash-es": "^4.17.11",
     "monaco-editor": "^0.17.0",
-    "zone.js": "^0.8.26",
-    "lodash-es": "^4.17.11"
+    "zone.js": "^0.8.26"
   },
   "resolutions": {
     "raw-loader": "^1.0.0"

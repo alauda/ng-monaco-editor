@@ -6537,6 +6537,11 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   dependencies:
     minimist "0.0.8"
 
+monaco-ace-tokenizer@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/monaco-ace-tokenizer/-/monaco-ace-tokenizer-0.1.1.tgz#710f00b2e2d9663a2a632db5ca8dfc386ebd1f99"
+  integrity sha512-17rMKkj2YKGIfslKXNhMydv4ewX+QO3/bTzcR+WKscinUcL/I03g2ImvokdvOy3syfb918cwOPQU2Jj7hEzFjA==
+
 monaco-editor@^0.17.1:
   version "0.17.1"
   resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.17.1.tgz#8fbe96ca54bfa75262706e044f8f780e904aa45c"

@@ -32,8 +32,65 @@ spec:
         cpu: "500m"
 `;
 
+const jenkinsfileCode = `pipeline{
+    agent {label "golang"}
+    options{
+      buildDiscarder(logRotator(numToKeepStr: '200'))
+    }
+
+    stages{
+      stage("clone"){
+        steps{
+          script{
+            env.TEST = "test"
+
+            def scmVars = checkout([
+              $class: 'GitSCM',
+              branches: [[name: "feat/test"]],
+            ])
+          }
+        }
+      }
+    }
+  }
+`;
+
 storiesOf('Code Editor', module)
   .addDecorator(withKnobs)
+  .add('monaco editor for Groovy', () => {
+    const model = jenkinsfileCode;
+    const options = object('options', {
+      folding: true,
+      minimap: { enabled: false },
+      readOnly: false,
+      language: 'groovy',
+    });
+    return {
+      moduleMetadata: {
+        imports: [
+          MonacoEditorModule.forRoot({
+            baseUrl: '',
+            defaultOptions: {},
+          }),
+        ],
+      },
+      template: /* HTML */ `
+        <h1>Raw</h1>
+        <textarea cols="80" rows="10" [(ngModel)]="model"></textarea>
+        <h1>ng-monaco-editor-for-Groovy</h1>
+        <ng-monaco-editor
+          style="height: 300px"
+          modelUri="file:text.yaml"
+          [options]="options"
+          [(ngModel)]="model"
+        ></ng-monaco-editor>
+      `,
+      props: {
+        options,
+        model,
+      },
+    };
+  })
   .add('monaco editor', () => {
     const model = exampleCode;
     const options = object('options', {
