@@ -5,7 +5,7 @@
   "description": "Angular wrapper for monaco-editor",
   "scripts": {
     "build": "yarn build:clean && node ./build.js",
-    "build:clean": "yarn rimraf ./release",
+    "build:clean": "rimraf ./release",
     "precommit": "lint-staged",
     "prepublishOnly": "yarn build",
     "lint": "tslint -p . -t stylish",
