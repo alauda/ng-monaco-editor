@@ -1,12 +1,13 @@
 {
   "name": "ng-monaco-editor",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "license": "MIT",
   "description": "Angular wrapper for monaco-editor",
   "scripts": {
     "build": "yarn build:clean && node ./build.js",
     "build:clean": "yarn rimraf ./release",
     "precommit": "lint-staged",
+    "prepublishOnly": "yarn build",
     "lint": "tslint -p . -t stylish",
     "lint:fix": "yarn lint -- --fix",
     "storybook": "start-storybook -p 9001 -c .storybook -s node_modules/monaco-editor/dev",
