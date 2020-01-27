@@ -45,7 +45,7 @@
     "codelyzer": "^5.1.0",
     "css-element-queries": "^1.0.2",
     "husky": "^3.0.0",
-    "lint-staged": "^9.0.2",
+    "lint-staged": "^10.0.3",
     "lodash-es": "^4.17.11",
     "monaco-editor": "^0.18.1",
     "ng-packagr": "^5.3.0",
