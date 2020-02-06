@@ -22,7 +22,7 @@
     "name": "Peng Xiao"
   },
   "devDependencies": {
-    "@angular/cli": "^8.1.0",
+    "@angular/cli": "^9.0.0",
     "@angular/common": "^8.1.0",
     "@angular/compiler": "^8.1.0",
     "@angular/compiler-cli": "^8.1.0",
