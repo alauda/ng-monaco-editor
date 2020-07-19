@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import {
+  MonacoEditor,
   MonacoEditorConfig,
   MonacoEditorOptions,
 } from './monaco-editor-config';
@@ -88,10 +89,7 @@ export class MonacoProviderService {
   /**
    * Create a code-editor at the given dom element.
    */
-  create(
-    domElement: HTMLElement,
-    options?: import('monaco-editor').editor.IEditorConstructionOptions,
-  ): import('monaco-editor').editor.IStandaloneCodeEditor {
+  create(domElement: HTMLElement, options?: MonacoEditorOptions): MonacoEditor {
     if (!this.monaco) {
       return;
     }
@@ -113,9 +111,7 @@ export class MonacoProviderService {
       renderSideBySide: false,
       // You can optionally disable resizing by passing in the option.
       enableSplitViewResizing: false,
-      ...(this.getEditorOptions(
-        options,
-      ) as import('monaco-editor').editor.IDiffEditorConstructionOptions),
+      ...this.getEditorOptions(options),
     };
 
     return this.monaco.editor.createDiffEditor(domElement, diffOptions);

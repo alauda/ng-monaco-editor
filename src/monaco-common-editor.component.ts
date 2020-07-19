@@ -18,6 +18,7 @@ import { ResizeSensor, ResizeSensorCallback } from 'css-element-queries';
 import { debounce, isEqual } from 'lodash-es';
 
 import {
+  MonacoEditor,
   MonacoEditorConfig,
   MonacoEditorOptions,
 } from './monaco-editor-config';
@@ -41,10 +42,10 @@ export abstract class MonacoCommonEditorComponent
   protected _value = '';
   protected _prevOptions: MonacoEditorOptions;
   protected destroyed = false;
-  protected editor: import('monaco-editor').editor.IStandaloneCodeEditor;
+  protected editor: MonacoEditor;
   private relayoutFunction: ResizeSensorCallback;
   private resizeSensorInstance: ResizeSensor;
-  private disposables: Array<import('monaco-editor').IDisposable> = [];
+  private disposables: import('monaco-editor').IDisposable[] = [];
 
   monacoLoaded = false;
 
@@ -57,7 +58,7 @@ export abstract class MonacoCommonEditorComponent
    * Raw Monaco editor options
    */
   @Input()
-  options: import('monaco-editor').editor.IEditorConstructionOptions;
+  options: MonacoEditorOptions;
 
   /**
    * The URI which will be assigned to monaco-editor's model.
@@ -96,7 +97,7 @@ export abstract class MonacoCommonEditorComponent
   @HostBinding('attr.model-id')
   modelId: string;
 
-  abstract createEditor(): import('monaco-editor').editor.IStandaloneCodeEditor;
+  abstract createEditor(): MonacoEditor;
 
   ngDoCheck(): void {
     // We should reset the editor when options change.

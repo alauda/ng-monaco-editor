@@ -1,76 +1,61 @@
 {
   "name": "ng-monaco-editor",
   "version": "2.2.2",
-  "license": "MIT",
   "description": "Angular wrapper for monaco-editor",
+  "repository": "git+https://github.com/alauda/ng-monaco-editor.git",
+  "author": "Alauda Frontend",
+  "contributors": [
+    "Peng Xiao <pengxiao@outlook.com>",
+    "JounQin <admin@1stG.me> (https://www.1stG.me)"
+  ],
+  "license": "MIT",
   "scripts": {
-    "build": "yarn build:clean && node ./build.js",
-    "build:clean": "rimraf ./release",
-    "precommit": "lint-staged",
-    "prepublishOnly": "yarn build",
+    "build": "yarn clean && ng-packagr",
+    "clean": "rimraf release",
     "lint": "tslint -p . -t stylish",
-    "lint:fix": "yarn lint -- --fix",
-    "storybook": "start-storybook -p 9001 -c .storybook -s node_modules/monaco-editor/dev",
-    "storybook:build": "yarn rimraf demo && build-storybook -c .storybook-github -s node_modules/monaco-editor/min -o demo"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alauda/ng-monaco-editor"
-  },
-  "author": {
-    "email": "pengxiao@outlook.com",
-    "name": "Peng Xiao"
-  },
-  "devDependencies": {
-    "@angular/cli": "^8.1.0",
-    "@angular/common": "^8.1.0",
-    "@angular/compiler": "^8.1.0",
-    "@angular/compiler-cli": "^8.1.0",
-    "@angular/core": "^8.1.0",
-    "@angular/forms": "^8.1.0",
-    "@angular/platform-browser": "^8.1.0",
-    "@angular/platform-browser-dynamic": "^8.1.0",
-    "@babel/core": "^7.4.5",
-    "@storybook/addon-actions": "^5.1.9",
-    "@storybook/addon-knobs": "^5.1.9",
-    "@storybook/addon-options": "^5.1.9",
-    "@storybook/angular": "^5.1.9",
-    "@storybook/cli": "^5.1.9",
-    "@types/lodash.debounce": "^4.0.6",
-    "@types/lodash.isequal": "^4.5.5",
-    "@types/storybook__addon-actions": "^3.4.3",
-    "@types/storybook__addon-knobs": "^5.0.2",
-    "@types/storybook__addon-options": "^4.0.2",
-    "babel-loader": "^8.0.4",
-    "codelyzer": "^5.1.0",
-    "css-element-queries": "^1.0.2",
-    "husky": "^3.0.0",
-    "lint-staged": "^9.0.2",
-    "lodash-es": "^4.17.11",
-    "monaco-editor": "^0.18.1",
-    "ng-packagr": "^5.3.0",
-    "node-sass": "^4.12.0",
-    "prettier": "^1.18.2",
-    "rimraf": "^2.6.2",
-    "rxjs": "^6.3.2",
-    "tslib": "^1.10.0",
-    "tslint": "^5.18.0",
-    "tslint-angular": "^3.0.2",
-    "tslint-config-prettier": "^1.15.0",
-    "tslint-plugin-prettier": "^2.0.0",
-    "typescript": "~3.5.2",
-    "webpack": "^4.35.2",
-    "zone.js": "^0.9.1"
-  },
-  "dependencies": {
-    "css-element-queries": "^1.0.2"
+    "prepublishOnly": "yarn build",
+    "storybook": "start-storybook -s node_modules/monaco-editor/dev",
+    "storybook:build": "rimraf demo && build-storybook -s node_modules/monaco-editor/min -o demo"
   },
   "peerDependencies": {
-    "monaco-editor": "^0.18.1",
-    "zone.js": "^0.8.26",
-    "lodash-es": "^4.17.11"
+    "lodash-es": "^4.17.15",
+    "monaco-editor": "^0.20.0"
   },
-  "resolutions": {
-    "raw-loader": "^1.0.0"
+  "dependencies": {
+    "css-element-queries": "^1.2.3"
+  },
+  "devDependencies": {
+    "@1stg/prettier-config": "^0.10.5",
+    "@angular-devkit/build-angular": "^0.1000.3",
+    "@angular/cli": "^10.0.3",
+    "@angular/common": "^10.0.4",
+    "@angular/compiler": "^10.0.4",
+    "@angular/compiler-cli": "^10.0.4",
+    "@angular/core": "^10.0.4",
+    "@angular/forms": "^10.0.4",
+    "@angular/platform-browser": "^10.0.4",
+    "@angular/platform-browser-dynamic": "^10.0.4",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-knobs": "^5.3.19",
+    "@storybook/addon-options": "^5.3.19",
+    "@storybook/angular": "^5.3.19",
+    "@storybook/cli": "^5.3.19",
+    "codelyzer": "^6.0.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "lodash-es": "^4.17.15",
+    "monaco-editor": "^0.20.0",
+    "ng-packagr": "^10.0.2",
+    "ng-tslint": "^1.0.0",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "rxjs": "^6.6.0",
+    "tslib": "^2.0.0",
+    "tslint": "^6.1.2",
+    "tslint-angular": "^3.0.2",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-plugin-prettier": "^2.3.0",
+    "typescript": "^3.9.7",
+    "zone.js": "^0.10.3"
   }
 }

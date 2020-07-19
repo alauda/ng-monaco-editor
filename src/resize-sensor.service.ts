@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ResizeSensor, ResizeSensorCallback } from 'css-element-queries';
+// TODO: extract it as native ES module
+import ResizeSensor, {
+  ResizeSensorCallback,
+} from 'css-element-queries/src/ResizeSensor'; // for smaller bundle size
 
 @Injectable()
 export class ResizeSensorService {
