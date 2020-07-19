@@ -3,11 +3,10 @@
   "dest": "./release",
   "lib": {
     "entryFile": "src/public-api.ts",
-    "languageLevel": ["dom", "es2017"],
     "umdModuleIds": {
-      "css-element-queries": "cssElementQueries",
+      "css-element-queries/src/ResizeSensor": "ResizeSensor",
       "lodash-es": "_"
     }
   },
-  "whitelistedNonPeerDependencies": ["tslib", "css-element-queries", "lodash"]
+  "whitelistedNonPeerDependencies": ["css-element-queries"]
 }

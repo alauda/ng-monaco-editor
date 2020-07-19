@@ -12,7 +12,7 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { MonacoCommonEditorComponent } from './monaco-common-editor.component';
-import { MonacoEditorConfig } from './monaco-editor-config';
+import { MonacoEditor, MonacoEditorConfig } from './monaco-editor-config';
 import { MonacoProviderService } from './monaco-provider.service';
 import { ResizeSensorService } from './resize-sensor.service';
 
@@ -50,7 +50,7 @@ export class MonacoDiffEditorComponent extends MonacoCommonEditorComponent
     super(monacoEditorConfig, monacoProvider, cdr, resizeSensor);
   }
 
-  createEditor(): import('monaco-editor').editor.IStandaloneCodeEditor {
+  createEditor(): MonacoEditor {
     this.originalModel = this.createModel(this.originalValue);
     this.model = this.createModel(this._value, this.modelUri);
 

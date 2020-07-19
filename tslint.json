@@ -1,11 +1,11 @@
 {
   "extends": [
+    "ng-tslint",
     "tslint:recommended",
     "tslint-angular",
     "tslint-config-prettier",
     "tslint-plugin-prettier"
   ],
-  "rulesDirectory": "./tslint-rules",
   "rules": {
     "prettier": true,
     "no-useless-cast": false,
@@ -31,14 +31,33 @@
       true,
       {
         "Component": {
-          "encapsulation": "\\.None$",
-          "preserveWhitespaces": "false$",
-          "changeDetection": "\\.OnPush$",
-          "!styles": ".*",
-          "!host": "\\[class\\]"
+          "argument": 0,
+          "properties": {
+            "!host": "\\[class\\]",
+            "!styles": ".*",
+            "!moduleId": ".*",
+            "changeDetection": "\\.OnPush$",
+            "encapsulation": "\\.None$"
+          }
         },
         "Directive": {
-          "!host": "\\[class\\]"
+          "argument": 0,
+          "properties": {
+            "!host": "\\[class\\]"
+          }
+        },
+        "NgModule": {
+          "argument": 0,
+          "properties": {
+            "*": "^(?!\\s*$).+"
+          }
+        },
+        "ContentChildren": {
+          "argument": 1,
+          "required": true,
+          "properties": {
+            "descendants": "^(true|false)$"
+          }
         }
       },
       "src/**/!(*.spec).ts"

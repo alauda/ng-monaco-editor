@@ -1,9 +1,9 @@
 /**
  * All common option fields for monaco are merged together for ease of config.
  */
-export type MonacoEditorOptions = import('monaco-editor').editor.IEditorConstructionOptions &
-  import('monaco-editor').editor.IDiffEditorConstructionOptions &
-  import('monaco-editor').editor.IColorizerElementOptions;
+export type MonacoEditorOptions = import('monaco-editor').editor.IStandaloneEditorConstructionOptions;
+
+export type MonacoEditor = import('monaco-editor').editor.IStandaloneCodeEditor;
 
 /**
  * Configuration over monaco editor.
