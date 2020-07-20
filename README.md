@@ -1,14 +1,16 @@
 # Angular wrapper for monaco-editor
-[![img](https://travis-ci.org/alauda/ng-monaco-editor.svg?branch=master)](https://travis-ci.org/alauda/ng-monaco-editor)
-[![img](https://badge.fury.io/js/ng-monaco-editor.svg)](https://www.npmjs.com/package/ng-monaco-editor)
-[![Greenkeeper badge](https://badges.greenkeeper.io/alauda/ng-monaco-editor.svg)](https://greenkeeper.io/)
+
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/alauda/ng-monaco-editor/Publish%20package)
+![npm](https://img.shields.io/npm/v/ng-monaco-editor)
+
 ## Dependencies
 
 - Angular 7+
 - monaco-editor: 1.5+
 
 ## Demo
-See: [https://alauda.github.io/ng-monaco-editor/demo/](https://alauda.github.io/ng-monaco-editor/demo/)
+
+See: <https://alauda.github.io/ng-monaco-editor/>
 
 ## Setup
 

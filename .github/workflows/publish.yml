@@ -1,0 +1,22 @@
+name: Publish package
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish_package:
+    name: Publish package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn
+      - name: Build package
+        run: yarn build
+      - name: Publish
+        run: |
+          npm set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
+          npm publish release
+        env:
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
