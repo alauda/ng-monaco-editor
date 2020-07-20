@@ -1,4 +1,4 @@
-import { object, withKnobs } from '@storybook/addon-knobs';
+import { object, text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/angular';
 
 import { MonacoEditorModule } from '../src/public-api';
@@ -71,6 +71,7 @@ storiesOf('Code Editor', module)
   .add('monaco diff editor', () => {
     const model = exampleCode;
     const originalModel = exampleCode;
+    const modelUri = text('modelUri', 'file:text.yaml');
     const options = object('options', {
       folding: true,
       minimap: { enabled: false },
@@ -87,12 +88,11 @@ storiesOf('Code Editor', module)
       },
       template: /* HTML */ `
         <h1>Raw</h1>
-        <button (click)="toggleOptions()">Toggle Options</button>
         <textarea cols="80" rows="10" [(ngModel)]="model"></textarea>
         <h1>ng-monaco-diff-editor</h1>
         <ng-monaco-diff-editor
           style="height: 300px"
-          modelUri="file:text.yaml"
+          [modelUri]="modelUri"
           [originalValue]="originalModel"
           [options]="options"
           [(ngModel)]="model"
@@ -102,9 +102,7 @@ storiesOf('Code Editor', module)
         options,
         model,
         originalModel,
-        toggleOptions() {
-          this.options = { ...this.options, whatever: !this.options.whatever };
-        },
+        modelUri,
       },
     };
   })

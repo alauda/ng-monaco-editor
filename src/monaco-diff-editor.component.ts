@@ -59,6 +59,8 @@ export class MonacoDiffEditorComponent extends MonacoCommonEditorComponent
       this.options,
     );
 
+    this.rootEditor = editor;
+
     editor.setModel({
       original: this.originalModel,
       modified: this.model,

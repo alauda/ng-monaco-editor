@@ -38,10 +38,17 @@ export abstract class MonacoCommonEditorComponent
     OnDestroy,
     DoCheck,
     ControlValueAccessor {
+  private _rootEditor: import('monaco-editor').editor.IEditor;
   protected model: import('monaco-editor').editor.IModel;
   protected _value = '';
   protected _prevOptions: MonacoEditorOptions;
   protected destroyed = false;
+  protected get rootEditor() {
+    return this._rootEditor || this.editor;
+  }
+  protected set rootEditor(editor) {
+    this._rootEditor = editor;
+  }
   protected editor: MonacoEditor;
   private relayoutFunction: ResizeSensorCallback;
   private resizeSensorInstance: ResizeSensor;
@@ -102,7 +109,7 @@ export abstract class MonacoCommonEditorComponent
   ngDoCheck(): void {
     // We should reset the editor when options change.
     if (this._prevOptions && !isEqual(this._prevOptions, this.options)) {
-      this.initEditor();
+      this.rootEditor.updateOptions(this.options);
     }
     this._prevOptions = this.options;
   }
@@ -158,14 +165,14 @@ export abstract class MonacoCommonEditorComponent
   }
 
   dispose() {
-    if (this.editor) {
-      this.editor.dispose();
+    if (this.rootEditor) {
+      this.rootEditor.dispose();
     }
     if (this.model && !this.model.isDisposed()) {
       this.model.dispose();
     }
     this.disposables.forEach(disposable => disposable.dispose());
-    this.editor = null;
+    this.rootEditor = this.editor = null;
     this.model = null;
     this.disposables = [];
   }
@@ -229,15 +236,9 @@ export abstract class MonacoCommonEditorComponent
         this._value = value;
         this.cdr.markForCheck();
       }),
-    );
-
-    this.disposables.push(
       this.editor.onDidChangeModel(() => {
         this.cdr.markForCheck();
       }),
-    );
-
-    this.disposables.push(
       this.editor.onDidBlurEditorWidget(() => {
         this.onTouched();
         this.blur.emit();

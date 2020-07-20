@@ -14,7 +14,7 @@
     "clean": "rimraf release",
     "lint": "tslint -p . -t stylish",
     "prepublishOnly": "yarn build",
-    "storybook": "start-storybook -s node_modules/monaco-editor/dev",
+    "storybook": "start-storybook -p 9001 -s node_modules/monaco-editor/dev",
     "storybook:build": "rimraf demo && build-storybook -s node_modules/monaco-editor/min -o demo"
   },
   "peerDependencies": {
