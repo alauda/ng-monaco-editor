@@ -38,8 +38,8 @@ export abstract class MonacoCommonEditorComponent
     OnDestroy,
     DoCheck,
     ControlValueAccessor {
-  private _rootEditor: import('monaco-editor').editor.IEditor;
-  protected model: import('monaco-editor').editor.IModel;
+  private _rootEditor: monaco.editor.IEditor;
+  protected model: monaco.editor.IModel;
   protected _value = '';
   protected _prevOptions: MonacoEditorOptions;
   protected destroyed = false;
@@ -52,7 +52,7 @@ export abstract class MonacoCommonEditorComponent
   protected editor: MonacoEditor;
   private relayoutFunction: ResizeSensorCallback;
   private resizeSensorInstance: ResizeSensor;
-  private disposables: import('monaco-editor').IDisposable[] = [];
+  private disposables: monaco.IDisposable[] = [];
 
   monacoLoaded = false;
 
@@ -197,10 +197,7 @@ export abstract class MonacoCommonEditorComponent
     this.onTouched = fn;
   }
 
-  createModel(
-    value: string,
-    uri?: string,
-  ): import('monaco-editor').editor.ITextModel {
+  createModel(value: string, uri?: string): monaco.editor.ITextModel {
     const { monaco } = this.monacoProvider;
     return monaco.editor.createModel(
       value,

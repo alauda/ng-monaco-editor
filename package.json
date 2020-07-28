@@ -1,6 +1,6 @@
 {
   "name": "ng-monaco-editor",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "description": "Angular wrapper for monaco-editor",
   "repository": "git+https://github.com/alauda/ng-monaco-editor.git",
   "author": "Alauda Frontend",
@@ -10,10 +10,10 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "yarn clean && ng-packagr",
-    "clean": "rimraf release",
+    "build": "ng-packagr",
     "lint": "tslint -p . -t stylish",
     "prepublishOnly": "yarn build",
+    "start": "yarn storybook",
     "storybook": "start-storybook -p 9001 -s node_modules/monaco-editor/dev",
     "storybook:build": "rimraf demo && build-storybook -s node_modules/monaco-editor/min -o demo"
   },

@@ -1,9 +1,11 @@
+import { Monaco } from './typing';
+
 /**
  * All common option fields for monaco are merged together for ease of config.
  */
-export type MonacoEditorOptions = import('monaco-editor').editor.IStandaloneEditorConstructionOptions;
+export type MonacoEditorOptions = monaco.editor.IStandaloneEditorConstructionOptions;
 
-export type MonacoEditor = import('monaco-editor').editor.IStandaloneCodeEditor;
+export type MonacoEditor = monaco.editor.IStandaloneCodeEditor;
 
 /**
  * Configuration over monaco editor.
@@ -15,6 +17,13 @@ export class MonacoEditorConfig {
    * e.g., assets/monaco-editor/min
    */
   baseUrl?: string;
+
+  /**
+   * Use webpack dynamic import function to load monaco assets.
+   *
+   * e.g., () => import('monaco-editor/esm/vs/editor/editor.api')
+   */
+  dynamicImport?: () => Promise<typeof import('monaco-editor')>;
 
   /**
    * Default options when creating editors

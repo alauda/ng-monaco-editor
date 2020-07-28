@@ -5,6 +5,7 @@ import {
   MonacoEditorConfig,
   MonacoEditorOptions,
 } from './monaco-editor-config';
+import { Monaco } from './typing';
 
 /**
  * Provider for monaco editor.
@@ -15,15 +16,21 @@ export class MonacoProviderService {
 
   private _theme = this.themes[0];
 
-  private _loadingPromise: Promise<void>;
+  private _loadingPromise: Promise<Monaco>;
 
   async initMonaco() {
     return this._loadingPromise || (this._loadingPromise = this.loadMonaco());
   }
 
-  private async loadMonaco() {
-    await this.configRequireJs();
-    await this.loadModule(['vs/editor/editor.main']);
+  private async loadMonaco(): Promise<Monaco> {
+    if (this.monacoEditorConfig.dynamicImport) {
+      return this.monacoEditorConfig.dynamicImport() as Promise<Monaco>;
+    } else if (this.monacoEditorConfig.baseUrl !== undefined) {
+      await this.configRequireJs();
+      return this.loadModule(['vs/editor/editor.main']);
+    } else {
+      return Promise.resolve(window.monaco);
+    }
   }
 
   /**
@@ -52,8 +59,8 @@ export class MonacoProviderService {
   /**
    * Expose global monaco object
    */
-  get monaco(): typeof import('monaco-editor') {
-    return (window as any).monaco;
+  get monaco() {
+    return window.monaco;
   }
 
   /**
@@ -66,7 +73,7 @@ export class MonacoProviderService {
   /**
    * Load additional monaco-editor modules.
    */
-  loadModule(deps: string[]) {
+  loadModule(deps: string[]): Promise<Monaco> {
     return new Promise(res => this.require(deps, res));
   }
 
@@ -101,8 +108,8 @@ export class MonacoProviderService {
 
   createDiffEditor(
     domElement: HTMLElement,
-    options?: import('monaco-editor').editor.IDiffEditorConstructionOptions,
-  ): import('monaco-editor').editor.IStandaloneDiffEditor {
+    options?: monaco.editor.IDiffEditorConstructionOptions,
+  ): monaco.editor.IStandaloneDiffEditor {
     if (!this.monaco) {
       return;
     }
@@ -122,7 +129,7 @@ export class MonacoProviderService {
    */
   colorizeElement(
     domElement: HTMLElement,
-    options?: import('monaco-editor').editor.IColorizerElementOptions,
+    options?: monaco.editor.IColorizerElementOptions,
   ) {
     if (!this.monaco) {
       return;
@@ -139,7 +146,7 @@ export class MonacoProviderService {
    */
   getLanguageExtensionPoint(
     alias: string,
-  ): import('monaco-editor').languages.ILanguageExtensionPoint {
+  ): monaco.languages.ILanguageExtensionPoint {
     if (!this.monaco) {
       return;
     }
@@ -170,7 +177,7 @@ export class MonacoProviderService {
       };
 
       const onAmdLoaderError = (error: ErrorEvent) => {
-        console.error('failed to load monaco', error);
+        console.error('Failed to load monaco', error);
         reject(error);
       };
 
