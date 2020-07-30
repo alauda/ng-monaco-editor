@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es2015",
-    "module": "es2015",
+    "module": "es2020",
     "moduleResolution": "node",
     "declaration": true,
     "inlineSourceMap": true,
@@ -15,8 +15,5 @@
     "lib": ["dom", "es2018"],
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["release", "dist", "node_modules"],
-  "angularCompilerOptions": {
-    "disableTypeScriptVersionCheck": true
-  }
+  "exclude": ["release", "dist"]
 }

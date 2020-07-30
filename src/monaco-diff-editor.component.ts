@@ -36,7 +36,7 @@ import { ResizeSensorService } from './resize-sensor.service';
 })
 export class MonacoDiffEditorComponent extends MonacoCommonEditorComponent
   implements OnChanges, OnDestroy {
-  protected originalModel: import('monaco-editor').editor.ITextModel;
+  protected originalModel: monaco.editor.ITextModel;
 
   @Input()
   originalValue: string;
