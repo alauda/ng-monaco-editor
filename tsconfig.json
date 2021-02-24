@@ -1,19 +1,19 @@
 {
-  "compileOnSave": false,
+  "extends": "@1stg/tsconfig/angular",
   "compilerOptions": {
-    "baseUrl": ".",
-    "target": "es2015",
-    "module": "es2020",
-    "moduleResolution": "node",
-    "declaration": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "skipLibCheck": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "lib": ["dom", "es2018"],
-    "allowSyntheticDefaultImports": true
+    "baseUrl": "."
   },
-  "exclude": ["release", "dist"]
+  // Extending `angularCompilerOptions` from `tsconfig` is not working for now
+  // it wil be supported in ng 12.0, see https://github.com/angular/angular/issues/36715
+  // TODO: remove it after upgrading to ng 12.0
+  "angularCompilerOptions": {
+    "disableTypeScriptVersionCheck": true,
+    "enableIvy": false,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "strictMetadataEmit": true,
+    "strictTemplates": true,
+    "trace": true
+  },
+  "exclude": ["node_modules", "dist", "release"]
 }

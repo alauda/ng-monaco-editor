@@ -1,7 +1,20 @@
+import { NgModule } from '@angular/core';
 import { object, text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/angular';
 
 import { MonacoEditorModule } from '../src/public-api';
+
+@NgModule({
+  imports: [
+    MonacoEditorModule.forRoot({
+      baseUrl: '',
+      defaultOptions: {},
+    }),
+  ],
+  exports: [MonacoEditorModule],
+})
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+export class RootModule {}
 
 const exampleCode = /* YAML */ `apiVersion: v1
 kind: Pod
@@ -44,12 +57,7 @@ storiesOf('Code Editor', module)
     });
     return {
       moduleMetadata: {
-        imports: [
-          MonacoEditorModule.forRoot({
-            baseUrl: '',
-            defaultOptions: {},
-          }),
-        ],
+        imports: [RootModule],
       },
       template: /* HTML */ `
         <h1>Raw</h1>
@@ -79,12 +87,7 @@ storiesOf('Code Editor', module)
     });
     return {
       moduleMetadata: {
-        imports: [
-          MonacoEditorModule.forRoot({
-            baseUrl: '',
-            defaultOptions: {},
-          }),
-        ],
+        imports: [RootModule],
       },
       template: /* HTML */ `
         <h1>Raw</h1>
@@ -106,23 +109,16 @@ storiesOf('Code Editor', module)
       },
     };
   })
-  .add('colorize code', () => {
-    return {
-      moduleMetadata: {
-        imports: [
-          MonacoEditorModule.forRoot({
-            baseUrl: '',
-            defaultOptions: {},
-          }),
-        ],
-      },
-      template: /* HTML */ `
-        <pre
-          style="font-family: Consolas, 'Courier New', monospace;"
-        ><code ngCodeColorize="yaml">{{ code }}</code></pre>
-      `,
-      props: {
-        code: exampleCode,
-      },
-    };
-  });
+  .add('colorize code', () => ({
+    moduleMetadata: {
+      imports: [RootModule],
+    },
+    template: /* HTML */ `
+      <pre
+        style="font-family: Consolas, 'Courier New', monospace;"
+      ><code ngCodeColorize="yaml">{{ code }}</code></pre>
+    `,
+    props: {
+      code: text('code', exampleCode),
+    },
+  }));

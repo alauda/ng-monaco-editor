@@ -1,20 +1,17 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  forwardRef,
   Input,
   OnChanges,
   OnDestroy,
   SimpleChanges,
   ViewEncapsulation,
+  forwardRef,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { MonacoCommonEditorComponent } from './monaco-common-editor.component';
-import { MonacoEditor, MonacoEditorConfig } from './monaco-editor-config';
-import { MonacoProviderService } from './monaco-provider.service';
-import { ResizeSensorService } from './resize-sensor.service';
+import { MonacoEditor } from './monaco-editor-config';
 
 /**
  * Wraps powerful Monaco Editor for simplicity usage in Angular.
@@ -34,21 +31,13 @@ import { ResizeSensorService } from './resize-sensor.service';
     },
   ],
 })
-export class MonacoDiffEditorComponent extends MonacoCommonEditorComponent
+export class MonacoDiffEditorComponent
+  extends MonacoCommonEditorComponent
   implements OnChanges, OnDestroy {
-  protected originalModel: monaco.editor.ITextModel;
-
   @Input()
   originalValue: string;
 
-  constructor(
-    monacoEditorConfig: MonacoEditorConfig,
-    monacoProvider: MonacoProviderService,
-    cdr: ChangeDetectorRef,
-    resizeSensor: ResizeSensorService,
-  ) {
-    super(monacoEditorConfig, monacoProvider, cdr, resizeSensor);
-  }
+  protected originalModel: monaco.editor.ITextModel;
 
   createEditor(): MonacoEditor {
     this.originalModel = this.createModel(this.originalValue);

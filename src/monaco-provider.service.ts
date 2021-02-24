@@ -12,25 +12,26 @@ import { Monaco } from './typing';
  */
 @Injectable()
 export class MonacoProviderService {
-  constructor(private monacoEditorConfig: MonacoEditorConfig) {}
+  constructor(private readonly monacoEditorConfig: MonacoEditorConfig) {}
 
   private _theme = this.themes[0];
 
   private _loadingPromise: Promise<Monaco>;
 
   async initMonaco() {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     return this._loadingPromise || (this._loadingPromise = this.loadMonaco());
   }
 
   private async loadMonaco(): Promise<Monaco> {
     if (this.monacoEditorConfig.dynamicImport) {
       return this.monacoEditorConfig.dynamicImport() as Promise<Monaco>;
-    } else if (this.monacoEditorConfig.baseUrl !== undefined) {
+    }
+    if (this.monacoEditorConfig.baseUrl !== undefined) {
       await this.configRequireJs();
       return this.loadModule(['vs/editor/editor.main']);
-    } else {
-      return Promise.resolve(window.monaco);
     }
+    return Promise.resolve(window.monaco);
   }
 
   /**
@@ -66,7 +67,7 @@ export class MonacoProviderService {
   /**
    * Expose global requirejs function/object
    */
-  get require(): any {
+  get require(): Require {
     return (window as any).require;
   }
 
@@ -74,7 +75,7 @@ export class MonacoProviderService {
    * Load additional monaco-editor modules.
    */
   loadModule(deps: string[]): Promise<Monaco> {
-    return new Promise(res => this.require(deps, res));
+    return new Promise(resolve => this.require(deps, resolve));
   }
 
   changeTheme(theme: string) {
@@ -163,7 +164,7 @@ export class MonacoProviderService {
    * Currently monaco-editor is loaded via its only loader and it is RequireJs (amd) spec:
    */
   protected configRequireJs() {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       if (this.monaco) {
         return resolve();
       }
@@ -176,10 +177,7 @@ export class MonacoProviderService {
         resolve();
       };
 
-      const onAmdLoaderError = (error: ErrorEvent) => {
-        console.error('Failed to load monaco', error);
-        reject(error);
-      };
+      const onAmdLoaderError = (error: ErrorEvent) => reject(error);
 
       const loaderScript = document.createElement('script');
       loaderScript.type = 'text/javascript';
@@ -188,7 +186,7 @@ export class MonacoProviderService {
         .join('/');
       loaderScript.addEventListener('load', onAmdLoader);
       loaderScript.addEventListener('error', onAmdLoaderError);
-      document.body.appendChild(loaderScript);
+      document.body.append(loaderScript);
     });
   }
 }

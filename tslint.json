@@ -1,32 +1,9 @@
 {
-  "extends": [
-    "ng-tslint",
-    "tslint:recommended",
-    "tslint-angular",
-    "tslint-config-prettier",
-    "tslint-plugin-prettier"
-  ],
+  "extends": ["@1stg/tslint-config/angular"],
   "rules": {
-    "prettier": true,
-    "no-useless-cast": false,
-    "no-duplicate-string": false,
-    "no-identical-functions": false,
-    "max-union-size": false,
-    "no-big-function": false,
-    "use-view-encapsulation": false,
-    "no-input-rename": false,
-    "no-output-rename": false,
-    "no-use-before-declare": false,
-    "max-classes-per-file": false,
+    "component-selector": [true, "element", "ng", "kebab-case"],
+    "directive-selector": [true, "attribute", "ng", "camelCase"],
     "no-non-null-assertion": false,
-    "use-host-property-decorator": false,
-    "no-reference": false,
-    "interface-name": false,
-    "no-debugger": true,
-    "ordered-imports": true,
-    "no-unused-expression": true,
-    "no-console": [true, "log"],
-    "no-consecutive-blank-lines": [true, 1],
     "validate-decorators": [
       true,
       {
@@ -61,8 +38,6 @@
         }
       },
       "src/**/!(*.spec).ts"
-    ],
-    "deprecation": { "severity": "warning" },
-    "use-component-view-encapsulation": false
+    ]
   }
 }
