@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "@1stg/stylelint-config/scss/loose"
+  ],
+  "rules": {
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignoreTypes": [
+          "/^ng-/"
+        ]
+      }
+    ]
+  }
+}

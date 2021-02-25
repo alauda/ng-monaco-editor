@@ -1,6 +1,5 @@
-.DS_Store
-demo
+dist
 node_modules
 release
+*.json
 *.log
-.*cache

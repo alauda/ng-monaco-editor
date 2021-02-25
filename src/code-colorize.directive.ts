@@ -58,7 +58,7 @@ export class CodeColorizeDirective
     }
     const el = this.element.nativeElement;
     const siblingEl = el.nextElementSibling as HTMLElement;
-    const useSiblingEl = siblingEl.dataset.ngCodeColorizeCloned;
+    const useSiblingEl = siblingEl?.dataset.ngCodeColorizeCloned;
     const nextEl = useSiblingEl
       ? siblingEl
       : (el.cloneNode(true) as HTMLElement);

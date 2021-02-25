@@ -15,5 +15,11 @@
     "strictTemplates": true,
     "trace": true
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "include": ["./.storybook/**/*.ts", "src", "stories"],
   "exclude": ["node_modules", "dist", "release"]
 }
