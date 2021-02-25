@@ -1,4 +1,0 @@
-{
-  "*.{js,jsx,json,css,sass,scss}": ["prettier --write"],
-  "*.{ts,tsx}": ["tslint -p . -t stylish --fix"]
-}

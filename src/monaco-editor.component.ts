@@ -1,16 +1,13 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  forwardRef,
   ViewEncapsulation,
+  forwardRef,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { MonacoCommonEditorComponent } from './monaco-common-editor.component';
-import { MonacoEditor, MonacoEditorConfig } from './monaco-editor-config';
-import { MonacoProviderService } from './monaco-provider.service';
-import { ResizeSensorService } from './resize-sensor.service';
+import { MonacoEditor } from './monaco-editor-config';
 
 /**
  * Wraps Monaco Editor for simplicity use in Angular.
@@ -31,15 +28,6 @@ import { ResizeSensorService } from './resize-sensor.service';
   ],
 })
 export class MonacoEditorComponent extends MonacoCommonEditorComponent {
-  constructor(
-    monacoEditorConfig: MonacoEditorConfig,
-    monacoProvider: MonacoProviderService,
-    cdr: ChangeDetectorRef,
-    resizeSensor: ResizeSensorService,
-  ) {
-    super(monacoEditorConfig, monacoProvider, cdr, resizeSensor);
-  }
-
   createEditor(): MonacoEditor {
     this.model = this.createModel(this._value, this.modelUri);
     return this.monacoProvider.create(this.monacoAnchor.nativeElement, {

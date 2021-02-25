@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectorRef,
+  Directive,
   DoCheck,
   ElementRef,
   EventEmitter,
@@ -30,6 +31,8 @@ const DEFAULT_RELAYOUT_INTERVAL = 100;
 /**
  * Wraps powerful Monaco Editor for simplicity use in Angular.
  */
+@Directive()
+// tslint:disable-next-line: directive-class-suffix
 export abstract class MonacoCommonEditorComponent
   implements
     OnInit,
@@ -46,9 +49,11 @@ export abstract class MonacoCommonEditorComponent
   protected get rootEditor() {
     return this._rootEditor || this.editor;
   }
+
   protected set rootEditor(editor) {
     this._rootEditor = editor;
   }
+
   protected editor: MonacoEditor;
   private relayoutFunction: ResizeSensorCallback;
   private resizeSensorInstance: ResizeSensor;
@@ -58,6 +63,7 @@ export abstract class MonacoCommonEditorComponent
 
   @ViewChild('monacoContainer', { static: true })
   protected monacoContainer: ElementRef;
+
   @ViewChild('monacoAnchor', { static: true })
   protected monacoAnchor: ElementRef;
 
@@ -178,7 +184,9 @@ export abstract class MonacoCommonEditorComponent
   }
 
   // Following are APIs required by ControlValueAccessor
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onChange = (_: string) => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onTouched = () => {};
 
   writeValue(value: string): void {
@@ -189,11 +197,11 @@ export abstract class MonacoCommonEditorComponent
     }
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 

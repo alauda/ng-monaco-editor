@@ -55,7 +55,7 @@ export const RESIZE_SENSOR_PROVIDER = {
   providers: [MONACO_PROVIDER, RESIZE_SENSOR_PROVIDER],
 })
 export class MonacoEditorModule {
-  public static forRoot(
+  static forRoot(
     config: MonacoEditorConfig = {},
   ): ModuleWithProviders<MonacoEditorModule> {
     return {

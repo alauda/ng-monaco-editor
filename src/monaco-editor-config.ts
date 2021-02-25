@@ -1,5 +1,3 @@
-import { Monaco } from './typing';
-
 /**
  * All common option fields for monaco are merged together for ease of config.
  */
