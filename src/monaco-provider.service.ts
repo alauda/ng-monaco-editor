@@ -7,6 +7,16 @@ import {
 } from './monaco-editor-config';
 import { Monaco } from './typing';
 
+export interface Require {
+  <T>(deps: string[], callback: (result: T) => void): void;
+  config(options: {
+    baseUrl: string;
+    paths: {
+      [key: string]: string;
+    };
+  }): void;
+}
+
 /**
  * Provider for monaco editor.
  */
@@ -15,6 +25,8 @@ export class MonacoProviderService {
   constructor(private readonly monacoEditorConfig: MonacoEditorConfig) {}
 
   private _theme = this.themes[0];
+
+  private _monaco: Monaco;
 
   private _loadingPromise: Promise<Monaco>;
 
@@ -25,12 +37,18 @@ export class MonacoProviderService {
 
   private async loadMonaco(): Promise<Monaco> {
     if (this.monacoEditorConfig.dynamicImport) {
-      return this.monacoEditorConfig.dynamicImport() as Promise<Monaco>;
+      return this.monacoEditorConfig
+        .dynamicImport()
+        .then(monaco => (this._monaco = monaco as Monaco));
     }
-    if (this.monacoEditorConfig.baseUrl !== undefined) {
-      await this.configRequireJs();
-      return this.loadModule(['vs/editor/editor.main']);
+
+    if (this.monacoEditorConfig.baseUrl != null) {
+      await this.configAmdLoader();
+      return this.loadModule<Monaco>(['vs/editor/editor.main']).then(
+        monaco => (this._monaco = monaco),
+      );
     }
+
     return Promise.resolve(window.monaco);
   }
 
@@ -52,36 +70,34 @@ export class MonacoProviderService {
     return this._theme && this._theme.endsWith('-dark');
   }
 
-  toggleTheme() {
-    const otherTheme = this.themes.find(theme => theme !== this.theme);
-    this.changeTheme(otherTheme);
-  }
-
   /**
    * Expose global monaco object
    */
   get monaco() {
-    return window.monaco;
+    return this._monaco || window.monaco;
   }
 
   /**
-   * Expose global requirejs function/object
+   * Expose global amd require function/object
    */
-  get require(): Require {
-    return (window as any).require;
+  get require() {
+    return (window.require as unknown) as Require;
   }
 
   /**
    * Load additional monaco-editor modules.
    */
-  loadModule(deps: string[]): Promise<Monaco> {
+  loadModule<T>(deps: string[]): Promise<T> {
     return new Promise(resolve => this.require(deps, resolve));
   }
 
+  toggleTheme() {
+    this.changeTheme(this.themes.find(theme => theme !== this.theme));
+  }
+
   changeTheme(theme: string) {
-    if (!this.monaco) {
-      return;
-    }
+    this.assertMonaco();
+
     this._theme = theme;
     this.monaco.editor.setTheme(theme);
   }
@@ -98,9 +114,8 @@ export class MonacoProviderService {
    * Create a code-editor at the given dom element.
    */
   create(domElement: HTMLElement, options?: MonacoEditorOptions): MonacoEditor {
-    if (!this.monaco) {
-      return;
-    }
+    this.assertMonaco();
+
     return this.monaco.editor.create(
       domElement,
       this.getEditorOptions(options),
@@ -111,9 +126,7 @@ export class MonacoProviderService {
     domElement: HTMLElement,
     options?: monaco.editor.IDiffEditorConstructionOptions,
   ): monaco.editor.IStandaloneDiffEditor {
-    if (!this.monaco) {
-      return;
-    }
+    this.assertMonaco();
 
     const diffOptions = {
       renderSideBySide: false,
@@ -132,9 +145,7 @@ export class MonacoProviderService {
     domElement: HTMLElement,
     options?: monaco.editor.IColorizerElementOptions,
   ) {
-    if (!this.monaco) {
-      return;
-    }
+    this.assertMonaco();
 
     return this.monaco.editor.colorizeElement(domElement, {
       theme: this.theme,
@@ -148,9 +159,8 @@ export class MonacoProviderService {
   getLanguageExtensionPoint(
     alias: string,
   ): monaco.languages.ILanguageExtensionPoint {
-    if (!this.monaco) {
-      return;
-    }
+    this.assertMonaco();
+
     return this.monaco.languages
       .getLanguages()
       .find(
@@ -161,9 +171,9 @@ export class MonacoProviderService {
   }
 
   /**
-   * Currently monaco-editor is loaded via its only loader and it is RequireJs (amd) spec:
+   * Currently monaco-editor is loaded via its own loader and it is RequireJs (amd) spec:
    */
-  protected configRequireJs() {
+  protected configAmdLoader() {
     return new Promise<void>((resolve, reject) => {
       if (this.monaco) {
         return resolve();
@@ -188,5 +198,13 @@ export class MonacoProviderService {
       loaderScript.addEventListener('error', onAmdLoaderError);
       document.body.append(loaderScript);
     });
+  }
+
+  private assertMonaco() {
+    if (!this.monaco) {
+      throw new Error(
+        'monaco has not been initialized, please call `initMonaco()` first',
+      );
+    }
   }
 }

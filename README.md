@@ -5,8 +5,8 @@
 
 ## Dependencies
 
-- Angular 7+
-- monaco-editor: 1.5+
+- [`Angular`](https://github.com/angular/angular) 10+
+- [`monaco-editor`](https://github.com/Microsoft/monaco-editor): 0.15+
 
 ## Demo
 
@@ -22,23 +22,24 @@ yarn add monaco-editor ng-monaco-editor
 
 ### Configure monaco-editor library assets
 
-Currently this library only supports load monaco-editor with AMD mode. You have
-to make sure your Angular application could have access to the monaco-editor library
-assets via RequireJS.
+It's supported to load monaco-editor with AMD or ESM mode.
 
-If you are using Angular CLI to bootstrap your app, you could add the following:
+If you'd like to use AMD mode, you have to make sure your Angular application could have access to the `monaco-editor` library
+assets via AMD. If you are using Angular CLI to bootstrap your app, you could add the following:
 
-```json
-"assets": [
-  "src/favicon.ico",
-  "src/assets",
+```jsonc
+{
+  "assets": [
+    "src/favicon.ico",
+    "src/assets",
 
-  {
-    "glob": "**/*",
-    "input": "node_modules/monaco-editor/min/vs",
-    "output": "/lib/vs"
-  },
-],
+    {
+      "glob": "**/*",
+      "input": "node_modules/monaco-editor/min/vs",
+      "output": "/lib/vs"
+    }
+  ]
+}
 ```
 
 ### Load ng-monaco-editor module
@@ -52,10 +53,20 @@ Most of the time, you should configure the module at the root module.
     BrowserModule,
     FormsModule,
     MonacoEditorModule.forRoot({
-      // Angular CLI currently does not handle assets with hashes. We manage it by manually adding
-      // version numbers to force library updates:
-      baseUrl: 'lib',
-      defaultOptions: DEFAULT_MONACO_OPTIONS,
+      /**
+       * optional, load monaco by yourself, you'd prefer loading esm for example
+       */
+      dynamicImport: () => import('monaco-editor/esm/vs/editor/editor.api'),
+
+      /**
+       * optional, use amd loader to load monaco if present, lower priority than `dynamicImport`
+       *
+       * Angular CLI currently does not handle assets with hashes. We manage it by manually adding
+       * version numbers to force library updates:
+       */
+      baseUrl: 'lib/v1',
+
+      defaultOptions: {},
     }),
   ],
   providers: [
@@ -74,7 +85,8 @@ export class AppModule {}
 
 ### Usage example
 
-Please refer to the storybook (`stores/index.ts`).
+Please refer to the storybook (`stories/**/*.stories.ts`).
+
 This module provide three usages:
 
 1. `ng-monaco-editor` component
