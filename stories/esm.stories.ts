@@ -7,7 +7,7 @@ import { startStories } from './base';
 @NgModule({
   imports: [
     MonacoEditorModule.forRoot({
-      dynamicImport: () => import('monaco-editor/esm/vs/editor/editor.api'),
+      dynamicImport: () => import('monaco-editor'),
     }),
   ],
   exports: [MonacoEditorModule],
