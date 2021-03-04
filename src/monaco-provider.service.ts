@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import {
   MonacoEditor,
@@ -23,12 +24,13 @@ export interface Require {
 @Injectable()
 export class MonacoProviderService {
   constructor(private readonly monacoEditorConfig: MonacoEditorConfig) {}
-
   private _theme = this.themes[0];
 
   private _monaco: Monaco;
 
   private _loadingPromise: Promise<Monaco>;
+
+  isDarkTheme$$ = new BehaviorSubject<boolean>(this.isDarkTheme);
 
   async initMonaco() {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -100,6 +102,7 @@ export class MonacoProviderService {
 
     this._theme = theme;
     this.monaco.editor.setTheme(theme);
+    this.isDarkTheme$$.next(this.isDarkTheme);
   }
 
   getEditorOptions(options: MonacoEditorOptions): MonacoEditorOptions {
