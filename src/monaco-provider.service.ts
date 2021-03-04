@@ -102,6 +102,7 @@ export class MonacoProviderService {
 
     this._theme = theme;
     this.monaco.editor.setTheme(theme);
+    this.isDarkTheme$$.next(this.isDarkTheme);
   }
 
   getEditorOptions(options: MonacoEditorOptions): MonacoEditorOptions {
