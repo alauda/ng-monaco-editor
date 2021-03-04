@@ -30,7 +30,11 @@ export class MonacoProviderService {
 
   private _loadingPromise: Promise<Monaco>;
 
-  isDarkTheme$$ = new BehaviorSubject<boolean>(this.isDarkTheme);
+  private readonly isDarkTheme$$ = new BehaviorSubject<boolean>(
+    this.isDarkTheme,
+  );
+
+  isDarkTheme$ = this.isDarkTheme$$.asObservable();
 
   async initMonaco() {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
