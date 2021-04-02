@@ -16,7 +16,11 @@ See: <https://alauda.github.io/ng-monaco-editor/>
 
 ### Add npm dependencies
 
-```
+```sh
+# npm
+npm i monaco-editor ng-monaco-editor
+
+# yarn
 yarn add monaco-editor ng-monaco-editor
 ```
 
@@ -97,6 +101,6 @@ Note, if the height of ng-monaco-editor/ng-monaco-diff-editor is too small, you
 may have to resize it yourself. This is a limitation and by design
 that how monaco-editor works.
 
-# License
+## License
 
 MIT @[Alauda](https://github.com/alauda)

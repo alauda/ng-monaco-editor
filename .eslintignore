@@ -1,3 +1,5 @@
-dist
+demo
 node_modules
 release
+CHANGELOG.md
+!/.*.js
