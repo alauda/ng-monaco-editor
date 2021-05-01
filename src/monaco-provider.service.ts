@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -6,7 +7,7 @@ import {
   MonacoEditorConfig,
   MonacoEditorOptions,
 } from './monaco-editor-config';
-import { Monaco } from './typing';
+import { Monaco } from './typings';
 
 export interface Require {
   <T>(deps: string[], callback: (result: T) => void): void;
@@ -45,7 +46,7 @@ export class MonacoProviderService {
     if (this.monacoEditorConfig.dynamicImport) {
       return this.monacoEditorConfig
         .dynamicImport()
-        .then(monaco => (this._monaco = monaco as Monaco));
+        .then(monaco => (this._monaco = monaco));
     }
 
     if (this.monacoEditorConfig.baseUrl != null) {
@@ -79,7 +80,7 @@ export class MonacoProviderService {
   /**
    * Expose global monaco object
    */
-  get monaco() {
+  get monaco(): Monaco {
     return this._monaco || window.monaco;
   }
 
@@ -131,8 +132,8 @@ export class MonacoProviderService {
 
   createDiffEditor(
     domElement: HTMLElement,
-    options?: monaco.editor.IDiffEditorConstructionOptions,
-  ): monaco.editor.IStandaloneDiffEditor {
+    options?: monacoEditor.editor.IDiffEditorConstructionOptions,
+  ): monacoEditor.editor.IStandaloneDiffEditor {
     this.assertMonaco();
 
     const diffOptions = {
@@ -150,7 +151,7 @@ export class MonacoProviderService {
    */
   colorizeElement(
     domElement: HTMLElement,
-    options?: monaco.editor.IColorizerElementOptions,
+    options?: monacoEditor.editor.IColorizerElementOptions,
   ) {
     this.assertMonaco();
 
@@ -165,7 +166,7 @@ export class MonacoProviderService {
    */
   getLanguageExtensionPoint(
     alias: string,
-  ): monaco.languages.ILanguageExtensionPoint {
+  ): monacoEditor.languages.ILanguageExtensionPoint {
     this.assertMonaco();
 
     return this.monaco.languages

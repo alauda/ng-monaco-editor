@@ -17,6 +17,7 @@ import {
 import { ControlValueAccessor } from '@angular/forms';
 import { ResizeSensor, ResizeSensorCallback } from 'css-element-queries';
 import { debounce, isEqual } from 'lodash-es';
+import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 
 import {
   MonacoEditor,
@@ -41,8 +42,8 @@ export abstract class MonacoCommonEditorComponent
     OnDestroy,
     DoCheck,
     ControlValueAccessor {
-  private _rootEditor: monaco.editor.IEditor;
-  protected model: monaco.editor.IModel;
+  private _rootEditor: monacoEditor.editor.IEditor;
+  protected model: monacoEditor.editor.IModel;
   protected _value = '';
   protected _prevOptions: MonacoEditorOptions;
   protected destroyed = false;
@@ -57,7 +58,7 @@ export abstract class MonacoCommonEditorComponent
   protected editor: MonacoEditor;
   private relayoutFunction: ResizeSensorCallback;
   private resizeSensorInstance: ResizeSensor;
-  private disposables: monaco.IDisposable[] = [];
+  private disposables: monacoEditor.IDisposable[] = [];
 
   monacoLoaded = false;
 
@@ -205,7 +206,7 @@ export abstract class MonacoCommonEditorComponent
     this.onTouched = fn;
   }
 
-  createModel(value: string, uri?: string): monaco.editor.ITextModel {
+  createModel(value: string, uri?: string): monacoEditor.editor.ITextModel {
     const { monaco } = this.monacoProvider;
     return monaco.editor.createModel(
       value,

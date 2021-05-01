@@ -1,9 +1,11 @@
+import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
+
 /**
  * All common option fields for monaco are merged together for ease of config.
  */
-export type MonacoEditorOptions = monaco.editor.IStandaloneEditorConstructionOptions;
+export type MonacoEditorOptions = monacoEditor.editor.IStandaloneEditorConstructionOptions;
 
-export type MonacoEditor = monaco.editor.IStandaloneCodeEditor;
+export type MonacoEditor = monacoEditor.editor.IStandaloneCodeEditor;
 
 /**
  * Configuration over monaco editor.
