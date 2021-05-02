@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.3](https://github.com/alauda/ng-monaco-editor/compare/v3.0.2...v3.0.3) (2021-05-02)
+
+
+### Bug Fixes
+
+* use esm to import monaco namespace. [#53](https://github.com/alauda/ng-monaco-editor/issues/53) ([#54](https://github.com/alauda/ng-monaco-editor/issues/54)) ([fbf838a](https://github.com/alauda/ng-monaco-editor/commit/fbf838a7b66f2dfd2dd5fafc834b536a24b234af))
+
 ### [3.0.2](https://github.com/alauda/ng-monaco-editor/compare/v3.0.1...v3.0.2) (2021-04-02)
 
 ### [3.0.1](https://github.com/alauda/ng-monaco-editor/compare/v3.0.0...v3.0.1) (2021-03-04)
