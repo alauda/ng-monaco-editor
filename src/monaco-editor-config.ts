@@ -1,11 +1,13 @@
-import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
+import type { editor } from 'monaco-editor';
+
+import { Monaco } from './typings';
 
 /**
  * All common option fields for monaco are merged together for ease of config.
  */
-export type MonacoEditorOptions = monacoEditor.editor.IStandaloneEditorConstructionOptions;
+export type MonacoEditorOptions = editor.IStandaloneEditorConstructionOptions;
 
-export type MonacoEditor = monacoEditor.editor.IStandaloneCodeEditor;
+export type MonacoEditor = editor.IStandaloneCodeEditor;
 
 /**
  * Configuration over monaco editor.
@@ -23,7 +25,7 @@ export class MonacoEditorConfig {
    *
    * e.g., () => import('monaco-editor/esm/vs/editor/editor.api')
    */
-  dynamicImport?: () => Promise<typeof import('monaco-editor')>;
+  dynamicImport?: () => Promise<Monaco>;
 
   /**
    * Default options when creating editors

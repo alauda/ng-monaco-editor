@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Type } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { object, text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/angular';
 
@@ -46,7 +48,7 @@ export const startStories = (RootModule: Type<any>) => {
       });
       return {
         moduleMetadata: {
-          imports: [RootModule],
+          imports: [CommonModule, FormsModule, RootModule],
         },
         template: /* HTML */ `
           <h1>Raw</h1>
@@ -76,7 +78,7 @@ export const startStories = (RootModule: Type<any>) => {
       });
       return {
         moduleMetadata: {
-          imports: [RootModule],
+          imports: [CommonModule, FormsModule, RootModule],
         },
         template: /* HTML */ `
           <h1>Raw</h1>
@@ -100,7 +102,7 @@ export const startStories = (RootModule: Type<any>) => {
     })
     .add('colorize code' + suffix, () => ({
       moduleMetadata: {
-        imports: [RootModule],
+        imports: [CommonModule, FormsModule, RootModule],
       },
       template: /* HTML */ `
         <pre

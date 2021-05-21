@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "bugfixes": true,
+        "corejs": "3.12",
+        "modules": false,
+        "shippedProposals": true,
+        "useBuiltIns": "usage"
+      }
+    ]
+  ],
+  "targets": {
+    "esmodules": true
+  }
+}

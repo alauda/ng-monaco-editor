@@ -16,15 +16,16 @@ import { MonacoProviderService } from './monaco-provider.service';
   selector: '[ngCodeColorize]',
 })
 export class CodeColorizeDirective
-  implements OnInit, AfterContentChecked, OnDestroy {
+  implements OnInit, AfterContentChecked, OnDestroy
+{
   @Input()
-  ngCodeColorize: string;
+  ngCodeColorize!: string;
 
   @Input()
-  ngCodeColorizeOptions: { theme: string };
+  ngCodeColorizeOptions?: { theme: string };
 
-  private originalDisplay: string;
-  private lastContent: string;
+  private originalDisplay!: string;
+  private lastContent!: string;
 
   private destroyed = false;
 
@@ -72,7 +73,7 @@ export class CodeColorizeDirective
     } else {
       nextEl.style.display = this.originalDisplay;
       nextEl.dataset.ngCodeColorizeCloned = 'true';
-      el.parentNode.insertBefore(nextEl, el.nextSibling);
+      el.parentNode!.insertBefore(nextEl, el.nextSibling);
     }
     // Monaco editor use data-lang to identify the language.
     nextEl.dataset.lang = this.ngCodeColorize;

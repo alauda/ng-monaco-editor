@@ -29,7 +29,7 @@ import { MonacoEditor } from './monaco-editor-config';
 })
 export class MonacoEditorComponent extends MonacoCommonEditorComponent {
   createEditor(): MonacoEditor {
-    this.model = this.createModel(this._value, this.modelUri);
+    this.model = this.createModel(this.value, this.modelUri);
     return this.monacoProvider.create(this.monacoAnchor.nativeElement, {
       ...this.options,
       model: this.model,

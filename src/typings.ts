@@ -1,9 +1,7 @@
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-
-export type Monaco = typeof monaco;
+export type Monaco = typeof import('monaco-editor');
 
 declare global {
   interface Window {
-    monaco: Monaco;
+    monaco?: Monaco;
   }
 }

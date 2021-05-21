@@ -34,15 +34,16 @@ import { MonacoEditor } from './monaco-editor-config';
 })
 export class MonacoDiffEditorComponent
   extends MonacoCommonEditorComponent
-  implements OnChanges, OnDestroy {
+  implements OnChanges, OnDestroy
+{
   @Input()
-  originalValue: string;
+  originalValue!: string;
 
-  protected originalModel: monacoEditor.editor.ITextModel;
+  protected originalModel!: monacoEditor.editor.ITextModel;
 
   createEditor(): MonacoEditor {
     this.originalModel = this.createModel(this.originalValue);
-    this.model = this.createModel(this._value, this.modelUri);
+    this.model = this.createModel(this.value, this.modelUri);
 
     const editor = this.monacoProvider.createDiffEditor(
       this.monacoAnchor.nativeElement,
@@ -59,17 +60,15 @@ export class MonacoDiffEditorComponent
     return editor.getModifiedEditor();
   }
 
-  ngOnChanges({ originalValue }: SimpleChanges): void {
-    super.ngOnChanges({ originalValue });
-    if (originalValue && this.originalModel) {
-      this.originalModel.setValue(this.originalValue);
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if (changes.originalValue) {
+      this.originalModel?.setValue(changes.originalValue.currentValue);
     }
   }
 
   ngOnDestroy() {
     super.ngOnDestroy();
-    if (this.originalModel) {
-      this.originalModel.dispose();
-    }
+    this.originalModel?.dispose();
   }
 }

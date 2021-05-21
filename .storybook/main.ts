@@ -1,4 +1,11 @@
 export default {
   stories: ['../stories/**/*.stories.ts'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-knobs'],
+  core: {
+    builder: 'webpack5',
+  },
+  addons: [
+    '@storybook/addon-actions',
+    '@storybook/addon-knobs',
+    '@storybook/addon-postcss',
+  ],
 };
