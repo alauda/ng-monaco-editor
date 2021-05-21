@@ -12,7 +12,6 @@ import { MonacoDiffEditorComponent } from './monaco-diff-editor.component';
 import { MonacoEditorConfig } from './monaco-editor-config';
 import { MonacoEditorComponent } from './monaco-editor.component';
 import { MonacoProviderService } from './monaco-provider.service';
-import { ResizeSensorService } from './resize-sensor.service';
 
 const EXPORTABLES = [
   MonacoEditorComponent,
@@ -20,8 +19,7 @@ const EXPORTABLES = [
   CodeColorizeDirective,
 ];
 
-// eslint-disable-next-line sonar/function-name -- TODO: rename
-export function MONACO_PROVIDER_FACTORY(
+export function MonacoProviderFactory(
   parent: MonacoProviderService,
   monacoEditorConfig: MonacoEditorConfig,
 ) {
@@ -35,26 +33,14 @@ export const MONACO_PROVIDER = {
     [new Optional(), new SkipSelf(), MonacoProviderService],
     MonacoEditorConfig,
   ],
-  useFactory: MONACO_PROVIDER_FACTORY,
-};
-
-// eslint-disable-next-line sonar/function-name -- TODO: rename
-export function RESIZE_SENSOR_PROVIDER_FACTORY(parent: ResizeSensorService) {
-  return parent || new ResizeSensorService();
-}
-
-export const RESIZE_SENSOR_PROVIDER = {
-  // If there is already an CodeEditorIntl available, use that. Otherwise, provide a new one.
-  provide: ResizeSensorService,
-  deps: [[new Optional(), new SkipSelf(), ResizeSensorService]],
-  useFactory: RESIZE_SENSOR_PROVIDER_FACTORY,
+  useFactory: MonacoProviderFactory,
 };
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   declarations: EXPORTABLES,
   exports: EXPORTABLES,
-  providers: [MONACO_PROVIDER, RESIZE_SENSOR_PROVIDER],
+  providers: [MONACO_PROVIDER],
 })
 export class MonacoEditorModule {
   static forRoot(
@@ -62,7 +48,12 @@ export class MonacoEditorModule {
   ): ModuleWithProviders<MonacoEditorModule> {
     return {
       ngModule: MonacoEditorModule,
-      providers: [{ provide: MonacoEditorConfig, useValue: config }],
+      providers: [
+        {
+          provide: MonacoEditorConfig,
+          useValue: config,
+        },
+      ],
     };
   }
 }

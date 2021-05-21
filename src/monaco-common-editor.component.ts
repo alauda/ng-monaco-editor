@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Directive,
-  DoCheck,
   ElementRef,
   EventEmitter,
   HostBinding,
@@ -15,17 +14,18 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { ResizeSensor, ResizeSensorCallback } from 'css-element-queries';
 import { debounce, isEqual } from 'lodash-es';
-import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
+import type { IDisposable, editor } from 'monaco-editor';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
+import { observeResizeOn } from './helpers';
 import {
   MonacoEditor,
   MonacoEditorConfig,
   MonacoEditorOptions,
 } from './monaco-editor-config';
 import { MonacoProviderService } from './monaco-provider.service';
-import { ResizeSensorService } from './resize-sensor.service';
 
 const DEFAULT_RELAYOUT_INTERVAL = 100;
 
@@ -33,65 +33,33 @@ const DEFAULT_RELAYOUT_INTERVAL = 100;
  * Wraps powerful Monaco Editor for simplicity use in Angular.
  */
 @Directive()
-// tslint:disable-next-line: directive-class-suffix
 export abstract class MonacoCommonEditorComponent
-  implements
-    OnInit,
-    OnChanges,
-    AfterViewInit,
-    OnDestroy,
-    DoCheck,
-    ControlValueAccessor {
-  private _rootEditor: monacoEditor.editor.IEditor;
-  protected model: monacoEditor.editor.IModel;
-  protected _value = '';
-  protected _prevOptions: MonacoEditorOptions;
-  protected destroyed = false;
-  protected get rootEditor() {
-    return this._rootEditor || this.editor;
-  }
-
-  protected set rootEditor(editor) {
-    this._rootEditor = editor;
-  }
-
-  protected editor: MonacoEditor;
-  private relayoutFunction: ResizeSensorCallback;
-  private resizeSensorInstance: ResizeSensor;
-  private disposables: monacoEditor.IDisposable[] = [];
-
-  monacoLoaded = false;
-
-  @ViewChild('monacoContainer', { static: true })
-  protected monacoContainer: ElementRef;
-
-  @ViewChild('monacoAnchor', { static: true })
-  protected monacoAnchor: ElementRef;
-
+  implements OnInit, OnChanges, AfterViewInit, OnDestroy, ControlValueAccessor
+{
   /**
    * Raw Monaco editor options
    */
   @Input()
-  options: MonacoEditorOptions;
+  options!: MonacoEditorOptions;
 
   /**
    * The URI which will be assigned to monaco-editor's model.
    * See monaco.Uri
    */
   @Input()
-  modelUri: string;
+  modelUri?: string;
 
   /**
    * Events emitted when monaco editor changed.
    */
   @Output()
-  monacoEditorChanged = new EventEmitter();
+  editorChange = new EventEmitter();
 
   /**
    * Events emitted when monaco editor blurs.
    */
   @Output()
-  blur = new EventEmitter();
+  editorBlur = new EventEmitter();
 
   /**
    * A helper ID to let the user to see the embedded monaco editor ID.
@@ -109,79 +77,111 @@ export abstract class MonacoCommonEditorComponent
    *      .getValue();
    */
   @HostBinding('attr.model-id')
-  modelId: string;
+  modelId!: string;
+
+  @ViewChild('monacoContainer', { static: true })
+  protected monacoContainer!: ElementRef;
+
+  @ViewChild('monacoAnchor', { static: true })
+  protected monacoAnchor!: ElementRef;
+
+  private _rootEditor?: editor.IEditor | null;
+
+  // for MonacoDiffEditorComponent usage
+  protected get rootEditor() {
+    return this._rootEditor || this.editor;
+  }
+
+  protected set rootEditor(editor) {
+    this._rootEditor = editor;
+  }
+
+  protected editor?: MonacoEditor | null;
+  protected model?: editor.IModel | null;
+
+  private _monacoLoaded = false;
+
+  // used in html
+  get monacoLoaded() {
+    return this._monacoLoaded;
+  }
+
+  private _destroyed = false;
+
+  get destroyed() {
+    return this._destroyed;
+  }
+
+  protected destroy$$ = new Subject<void>();
+
+  protected get value() {
+    return this._value;
+  }
+
+  private _value = '';
+  private _prevOptions?: MonacoEditorOptions;
+  private _disposables: IDisposable[] = [];
 
   abstract createEditor(): MonacoEditor;
-
-  ngDoCheck(): void {
-    // We should reset the editor when options change.
-    if (this._prevOptions && !isEqual(this._prevOptions, this.options)) {
-      this.rootEditor.updateOptions(this.options);
-    }
-    this._prevOptions = this.options;
-  }
 
   constructor(
     protected monacoEditorConfig: MonacoEditorConfig,
     protected monacoProvider: MonacoProviderService,
     protected cdr: ChangeDetectorRef,
-    protected resizeSensor: ResizeSensorService,
   ) {}
 
   ngOnInit() {
-    this.initEditor();
+    this.resetEditor();
   }
 
   ngAfterViewInit(): void {
     const layoutInterval =
-      this.monacoEditorConfig.autoLayoutInterval == null
-        ? DEFAULT_RELAYOUT_INTERVAL
-        : this.monacoEditorConfig.autoLayoutInterval;
+      this.monacoEditorConfig.autoLayoutInterval ?? DEFAULT_RELAYOUT_INTERVAL;
 
     if (layoutInterval) {
-      this.relayoutFunction = debounce(() => {
-        if (this.editor) {
-          this.editor.layout();
-        }
-      }, layoutInterval);
-      this.resizeSensorInstance = this.resizeSensor.registerResize(
-        this.monacoContainer.nativeElement,
-        this.relayoutFunction,
-      );
+      observeResizeOn(this.monacoContainer.nativeElement)
+        .pipe(takeUntil(this.destroy$$))
+        .subscribe(
+          debounce(() => {
+            if (this.editor) {
+              this.editor.layout();
+            }
+          }, layoutInterval),
+        );
     }
   }
 
-  ngOnChanges({ modelUri }: SimpleChanges): void {
+  ngOnChanges({ modelUri, options }: SimpleChanges): void {
     if (modelUri && !modelUri.isFirstChange()) {
       // If modelUri is changed, we need to recreate the editor to reflect the change.
-      this.initEditor();
+      this.resetEditor();
+    }
+
+    if (options) {
+      const currOptions = options.currentValue;
+      // We should reset the editor when options change.
+      if (this._prevOptions && !isEqual(this._prevOptions, currOptions)) {
+        this.rootEditor!.updateOptions(currOptions);
+      }
+      this._prevOptions = currOptions;
     }
   }
 
   ngOnDestroy(): void {
     this.dispose();
 
-    if (this.resizeSensorInstance) {
-      this.resizeSensorInstance.detach(this.relayoutFunction);
-    }
-
-    this.relayoutFunction = null;
-    this.resizeSensorInstance = null;
-
-    this.destroyed = true;
+    this._destroyed = true;
   }
 
   dispose() {
-    if (this.rootEditor) {
-      this.rootEditor.dispose();
-    }
+    this.rootEditor?.dispose();
     if (this.model && !this.model.isDisposed()) {
       this.model.dispose();
     }
-    this.disposables.forEach(disposable => disposable.dispose());
+    this._disposables.forEach(disposable => disposable.dispose());
     this.rootEditor = this.editor = null;
     this.model = null;
-    this.disposables = [];
+    this._disposables = [];
   }
 
   // Following are APIs required by ControlValueAccessor
@@ -194,7 +194,7 @@ export abstract class MonacoCommonEditorComponent
     this._value = value || '';
     // Fix for value change while dispose in process.
     if (this.editor) {
-      this.updateEditorValue(this._value);
+      this.model!.setValue(this._value);
     }
   }
 
@@ -206,7 +206,7 @@ export abstract class MonacoCommonEditorComponent
     this.onTouched = fn;
   }
 
-  createModel(value: string, uri?: string): monacoEditor.editor.ITextModel {
+  createModel(value: string, uri?: string): editor.ITextModel {
     const { monaco } = this.monacoProvider;
     return monaco.editor.createModel(
       value,
@@ -215,26 +215,29 @@ export abstract class MonacoCommonEditorComponent
     );
   }
 
-  private async initEditor() {
-    await this.monacoProvider.initMonaco();
-    this.monacoLoaded = true;
-
-    this.dispose();
+  private async resetEditor() {
+    if (this.monacoLoaded) {
+      this.dispose();
+    } else {
+      await this.monacoProvider.initMonaco();
+      this._monacoLoaded = true;
+    }
 
     if (!this.destroyed) {
       this.editor = this.createEditor();
       this.listenModelChanges();
-      this.monacoEditorChanged.emit(this.editor);
-      this.modelId = this.model.id;
+      this.editorChange.emit(this.editor);
+      this.modelId = this.model!.id;
       this.cdr.markForCheck();
     }
   }
 
   private listenModelChanges(): void {
-    this.disposables = [];
-    this.disposables.push(
-      this.model.onDidChangeContent(() => {
-        const value = this.model.getValue();
+    const editor = this.editor!;
+    const model = this.model!;
+    this._disposables = [
+      model.onDidChangeContent(() => {
+        const value = model.getValue();
         if (this._value === value) {
           return;
         }
@@ -242,17 +245,13 @@ export abstract class MonacoCommonEditorComponent
         this._value = value;
         this.cdr.markForCheck();
       }),
-      this.editor.onDidChangeModel(() => {
+      editor.onDidChangeModel(() => {
         this.cdr.markForCheck();
       }),
-      this.editor.onDidBlurEditorWidget(() => {
+      editor.onDidBlurEditorWidget(() => {
         this.onTouched();
-        this.blur.emit();
+        this.editorBlur.emit();
       }),
-    );
-  }
-
-  private updateEditorValue(value: string): void {
-    this.model.setValue(value);
+    ];
   }
 }

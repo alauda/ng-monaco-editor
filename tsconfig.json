@@ -1,13 +1,10 @@
 {
-  "extends": "@1stg/tsconfig/angular.json",
-  "compilerOptions": {
-    "baseUrl": "."
-  },
+  "extends": "@1stg/tsconfig/ng-lib",
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
     }
   },
-  "include": ["./.storybook/**/*.ts", "src", "stories"],
+  "include": ["./.storybook/**/*.ts", "./src", "./stories"],
   "exclude": ["node_modules", "dist", "release"]
 }

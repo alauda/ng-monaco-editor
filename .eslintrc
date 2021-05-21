@@ -1,3 +1,21 @@
 {
-  "extends": "@1stg/eslint-config/loose"
+  "extends": "@1stg/eslint-config/loose",
+  "rules": {
+    "@angular-eslint/component-selector": [
+      2,
+      {
+        "type": "element",
+        "prefix": "ng",
+        "style": "kebab-case"
+      }
+    ],
+    "@angular-eslint/directive-selector": [
+      2,
+      {
+        "type": "attribute",
+        "prefix": "ng",
+        "style": "camelCase"
+      }
+    ]
+  }
 }
