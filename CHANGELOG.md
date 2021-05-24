@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/alauda/ng-monaco-editor/compare/v3.0.3...v4.0.0) (2021-05-24)
+
+
+### Features
+
+* upgrade angular v12, rxjs v7, webpack v5 ([53dce0f](https://github.com/alauda/ng-monaco-editor/commit/53dce0fdd2de3cb1fc96e44aa67c8db982119194))
+
 ### [3.0.3](https://github.com/alauda/ng-monaco-editor/compare/v3.0.2...v3.0.3) (2021-05-02)
 
 
