@@ -1,6 +1,6 @@
 # Angular wrapper for monaco-editor
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/alauda/ng-monaco-editor/Publish%20package)](https://github.com/alauda/ng-monaco-editor/actions?query=workflow%3A%22Publish+package%22)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/alauda/ng-monaco-editor/Publish%20package)](https://github.com/alauda/ng-monaco-editor/actions/workflows/publish.yml)
 [![npm](https://img.shields.io/npm/v/ng-monaco-editor)](https://www.npmjs.com/package/ng-monaco-editor)
 
 ## Dependencies
@@ -60,7 +60,7 @@ Most of the time, you should configure the module at the root module.
       /**
        * optional, load monaco by yourself, you'd prefer loading esm for example
        */
-      dynamicImport: () => import('monaco-editor/esm/vs/editor/editor.api'),
+      dynamicImport: () => import('monaco-editor'),
 
       /**
        * optional, use amd loader to load monaco if present, lower priority than `dynamicImport`
