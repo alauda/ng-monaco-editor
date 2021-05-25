@@ -9,7 +9,7 @@ import {
   forwardRef,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
+import { editor } from 'monaco-editor';
 
 import { MonacoCommonEditorComponent } from './monaco-common-editor.component';
 import { MonacoEditor } from './monaco-editor-config';
@@ -39,7 +39,7 @@ export class MonacoDiffEditorComponent
   @Input()
   originalValue!: string;
 
-  protected originalModel!: monacoEditor.editor.ITextModel;
+  protected originalModel!: editor.ITextModel;
 
   createEditor(): MonacoEditor {
     this.originalModel = this.createModel(this.originalValue);

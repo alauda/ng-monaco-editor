@@ -23,7 +23,7 @@ export class MonacoEditorConfig {
   /**
    * Use webpack dynamic import function to load monaco assets.
    *
-   * e.g., () => import('monaco-editor/esm/vs/editor/editor.api')
+   * e.g., () => import('monaco-editor')
    */
   dynamicImport?: () => Promise<Monaco>;
 
