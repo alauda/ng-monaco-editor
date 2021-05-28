@@ -53,13 +53,13 @@ export abstract class MonacoCommonEditorComponent
    * Events emitted when monaco editor changed.
    */
   @Output()
-  editorChange = new EventEmitter();
+  editorChange = new EventEmitter<MonacoEditor>();
 
   /**
    * Events emitted when monaco editor blurs.
    */
   @Output()
-  editorBlur = new EventEmitter();
+  editorBlur = new EventEmitter<void>();
 
   /**
    * A helper ID to let the user to see the embedded monaco editor ID.
@@ -89,7 +89,7 @@ export abstract class MonacoCommonEditorComponent
 
   // for MonacoDiffEditorComponent usage
   protected get rootEditor() {
-    return this._rootEditor || this.editor;
+    return this._rootEditor ?? this.editor;
   }
 
   protected set rootEditor(editor) {
