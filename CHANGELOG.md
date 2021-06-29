@@ -6,8 +6,6 @@
 
 - [#63](https://github.com/alauda/ng-monaco-editor/pull/63) [`ae72d0c`](https://github.com/alauda/ng-monaco-editor/commit/ae72d0c5f9f907d9abf41cd2261d18f6220195a1) Thanks [@JounQin](https://github.com/JounQin)! - fix: require could be unavailable when toggle from esm to amd
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
-
 ### [4.0.2](https://github.com/alauda/ng-monaco-editor/compare/v4.0.1...v4.0.2) (2021-05-28)
 
 ### Bug Fixes
