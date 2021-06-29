@@ -1,6 +1,7 @@
 # Angular wrapper for monaco-editor
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/alauda/ng-monaco-editor/Publish%20package)](https://github.com/alauda/ng-monaco-editor/actions/workflows/publish.yml)
+[![GitHub Release Workflow Status](https://github.com/alauda/ng-monaco-editor/workflows/Release/badge.svg)](https://github.com/alauda/ng-monaco-editor/actions/workflows/release.yml)
+[![GitHub Stories Workflow Status](https://github.com/alauda/ng-monaco-editor/workflows/Deploy%20stories/badge.svg)](https://github.com/alauda/ng-monaco-editor/actions/workflows/stories.yml)
 [![npm](https://img.shields.io/npm/v/ng-monaco-editor)](https://www.npmjs.com/package/ng-monaco-editor)
 
 ## Dependencies
