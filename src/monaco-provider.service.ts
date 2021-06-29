@@ -57,7 +57,7 @@ export class MonacoProviderService {
   /**
    * Expose global amd require function/object
    */
-  get require() {
+  get require(): Require | undefined {
     return window.require as unknown as Require;
   }
 
@@ -77,7 +77,7 @@ export class MonacoProviderService {
    * Load additional monaco-editor modules.
    */
   loadModule<T>(deps: string[]) {
-    return new Promise<T>(resolve => this.require(deps, resolve));
+    return new Promise<T>(resolve => this.require!(deps, resolve));
   }
 
   toggleTheme() {
@@ -157,7 +157,7 @@ export class MonacoProviderService {
    */
   protected configAmdLoader(baseUrl: string) {
     return new Promise<void>((resolve, reject) => {
-      if (this.monaco) {
+      if (this.monaco && this.require) {
         return resolve();
       }
 
@@ -167,7 +167,7 @@ export class MonacoProviderService {
         .filter(_ => !!_)
         .join('/');
       loaderScript.addEventListener('load', () => {
-        this.require.config({
+        this.require!.config({
           baseUrl,
           paths: { vs: 'vs' },
         });
