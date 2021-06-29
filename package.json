@@ -22,7 +22,7 @@
     "release": "changeset publish",
     "start": "yarn storybook",
     "storybook": "start-storybook -p 9001 -s node_modules/monaco-editor/dev",
-    "storybook:build": "rimraf demo && build-storybook -s node_modules/monaco-editor/min -o demo"
+    "storybook:build": "rimraf demo && build-storybook -s node_modules/monaco-editor/min -o dist"
   },
   "peerDependencies": {
     "@angular/core": ">=10.0.0",
