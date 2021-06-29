@@ -60,14 +60,14 @@ export class MonacoDiffEditorComponent
     return editor.getModifiedEditor();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  override ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
     if (changes.originalValue) {
       this.originalModel?.setValue(changes.originalValue.currentValue);
     }
   }
 
-  ngOnDestroy() {
+  override ngOnDestroy() {
     super.ngOnDestroy();
     this.originalModel?.dispose();
   }
