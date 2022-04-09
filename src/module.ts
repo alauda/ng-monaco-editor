@@ -27,7 +27,7 @@ export function MonacoProviderFactory(
 }
 
 export const MONACO_PROVIDER = {
-  // If there is already an CodeEditorIntl available, use that. Otherwise, provide a new one.
+  // If there is already an MonacoProviderService available, use that. Otherwise, provide a new one.
   provide: MonacoProviderService,
   deps: [
     [new Optional(), new SkipSelf(), MonacoProviderService],

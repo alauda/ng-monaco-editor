@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import type { editor } from 'monaco-editor';
 
 import { Monaco } from './typings';
@@ -12,6 +13,7 @@ export type MonacoEditor = editor.IStandaloneCodeEditor;
 /**
  * Configuration over monaco editor.
  */
+@Injectable({ providedIn: 'root' })
 export class MonacoEditorConfig {
   /**
    * The base URL to monaco editor library assets via AMD (RequireJS).

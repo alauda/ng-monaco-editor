@@ -21,7 +21,7 @@ export interface Require {
 /**
  * Provider for monaco editor.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MonacoProviderService {
   private _theme =
     this.monacoEditorConfig.defaultOptions?.theme ?? this.themes[0];
