@@ -1,4 +1,7 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["../stories/**/*.ts"]
+  "include": ["./**/*.ts", "../stories/**/*.ts"],
+  "compilerOptions": {
+    "baseUrl": ".."
+  }
 }
