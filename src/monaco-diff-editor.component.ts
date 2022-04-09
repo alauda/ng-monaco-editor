@@ -63,7 +63,9 @@ export class MonacoDiffEditorComponent
   override ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
     if (changes.originalValue) {
-      this.originalModel?.setValue(changes.originalValue.currentValue);
+      this.originalModel?.setValue(
+        changes.originalValue.currentValue as string,
+      );
     }
   }
 

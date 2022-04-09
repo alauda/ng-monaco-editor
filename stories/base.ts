@@ -52,7 +52,11 @@ export const startStories = (RootModule: Type<any>) => {
         },
         template: /* HTML */ `
           <h1>Raw</h1>
-          <textarea cols="80" rows="10" [(ngModel)]="model"></textarea>
+          <textarea
+            cols="80"
+            rows="10"
+            [(ngModel)]="model"
+          ></textarea>
           <h1>ng-monaco-editor</h1>
           <ng-monaco-editor
             style="height: 300px"
@@ -82,7 +86,11 @@ export const startStories = (RootModule: Type<any>) => {
         },
         template: /* HTML */ `
           <h1>Raw</h1>
-          <textarea cols="80" rows="10" [(ngModel)]="model"></textarea>
+          <textarea
+            cols="80"
+            rows="10"
+            [(ngModel)]="model"
+          ></textarea>
           <h1>ng-monaco-diff-editor</h1>
           <ng-monaco-diff-editor
             style="height: 300px"

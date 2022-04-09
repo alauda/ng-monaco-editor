@@ -1,6 +1,6 @@
 {
   "extends": [
-    "@1stg/stylelint-config/scss/loose"
+    "@1stg/stylelint-config/loose"
   ],
   "rules": {
     "selector-type-no-unknown": [

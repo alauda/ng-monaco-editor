@@ -23,11 +23,15 @@ export interface Require {
  */
 @Injectable()
 export class MonacoProviderService {
-  private readonly isDarkTheme$$ = new BehaviorSubject<boolean>(
-    this.isDarkTheme,
-  );
+  private _theme =
+    this.monacoEditorConfig.defaultOptions?.theme ?? this.themes[0];
 
-  isDarkTheme$ = this.isDarkTheme$$.asObservable();
+  private _monaco?: Monaco;
+  private _loadingPromise?: Promise<Monaco>;
+
+  private readonly theme$$ = new BehaviorSubject<string>(this.theme);
+
+  theme$ = this.theme$$.asObservable();
 
   /**
    * Returns all available themes
@@ -43,10 +47,6 @@ export class MonacoProviderService {
     return this._theme;
   }
 
-  get isDarkTheme() {
-    return this._theme?.endsWith('-dark');
-  }
-
   /**
    * Expose global monaco object
    */
@@ -60,12 +60,6 @@ export class MonacoProviderService {
   get require(): Require | undefined {
     return window.require as unknown as Require;
   }
-
-  private _theme = this.themes[0];
-
-  private _monaco?: Monaco;
-
-  private _loadingPromise?: Promise<Monaco>;
 
   constructor(private readonly monacoEditorConfig: MonacoEditorConfig) {}
 
@@ -89,7 +83,7 @@ export class MonacoProviderService {
 
     this._theme = theme;
     this.monaco.editor.setTheme(theme);
-    this.isDarkTheme$$.next(this.isDarkTheme);
+    this.theme$$.next(this.theme);
   }
 
   getEditorOptions(options?: MonacoEditorOptions): MonacoEditorOptions {
@@ -204,6 +198,6 @@ export class MonacoProviderService {
       throw new Error('No `monaco` found on `window`');
     }
 
-    return Promise.resolve(window.monaco);
+    return window.monaco;
   }
 }

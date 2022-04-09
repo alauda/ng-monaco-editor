@@ -83,7 +83,7 @@ export abstract class MonacoCommonEditorComponent
   protected monacoContainer!: ElementRef;
 
   @ViewChild('monacoAnchor', { static: true })
-  protected monacoAnchor!: ElementRef;
+  protected monacoAnchor!: ElementRef<HTMLElement>;
 
   private _rootEditor?: editor.IEditor | null;
 
@@ -158,7 +158,7 @@ export abstract class MonacoCommonEditorComponent
     }
 
     if (options) {
-      const currOptions = options.currentValue;
+      const currOptions = options.currentValue as editor.IEditorOptions;
       // We should reset the editor when options change.
       if (this._prevOptions && !isEqual(this._prevOptions, currOptions)) {
         this.rootEditor!.updateOptions(currOptions);

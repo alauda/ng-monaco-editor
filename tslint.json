@@ -1,6 +1,0 @@
-{
-  "extends": ["@1stg/tslint-config/angular", "@1stg/tslint-config/eslint"],
-  "rules": {
-    "no-non-null-assertion": false
-  }
-}
