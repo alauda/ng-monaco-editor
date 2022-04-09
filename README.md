@@ -11,7 +11,7 @@
 
 ## Demo
 
-See: <https://alauda.github.io/ng-monaco-editor/>
+See: <https://ng-monaco-editor.js.org> or <https://ng-monaco-editor.netlify.app>
 
 ## Setup
 
@@ -104,4 +104,4 @@ that how monaco-editor works.
 
 ## License
 
-MIT @[Alauda](https://github.com/alauda)
+[MIT](./LICENSE) @[Alauda](https://github.com/alauda)
