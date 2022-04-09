@@ -32,6 +32,6 @@ jobs:
         uses: crazy-max/ghaction-github-pages@v1
         with:
           build_dir: dist
-          fqdn: aui.js.org
+          fqdn: ng-monaco-editor.js.org
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
