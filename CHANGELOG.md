@@ -1,5 +1,17 @@
 # Changelog
 
+## 5.0.0
+
+### Major Changes
+
+- [#73](https://github.com/alauda/ng-monaco-editor/pull/73) [`bcf921b`](https://github.com/alauda/ng-monaco-editor/commit/bcf921ba97e1e3a599cf96d79157148a960165c3) Thanks [@JounQin](https://github.com/JounQin)! - feat!: expose theme as Observable, remove isDarkTheme
+
+### Patch Changes
+
+- [#75](https://github.com/alauda/ng-monaco-editor/pull/75) [`bddf557`](https://github.com/alauda/ng-monaco-editor/commit/bddf557d39163a31956f8325724379c1fc1d3933) Thanks [@JounQin](https://github.com/JounQin)! - chore: provide service and config in root
+
+- [#73](https://github.com/alauda/ng-monaco-editor/pull/73) [`bcf921b`](https://github.com/alauda/ng-monaco-editor/commit/bcf921ba97e1e3a599cf96d79157148a960165c3) Thanks [@JounQin](https://github.com/JounQin)! - fix: use `defaultOptions.theme` as default theme
+
 ## 4.0.3
 
 ### Patch Changes
