@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.1
+
+### Patch Changes
+
+- [#76](https://github.com/alauda/ng-monaco-editor/pull/76) [`22f039a`](https://github.com/alauda/ng-monaco-editor/commit/22f039a628e37c90654f88a8caa18b55c14fa2fd) Thanks [@JounQin](https://github.com/JounQin)! - fix: use getLanguageId instead of model.id
+
 ## 5.0.0
 
 ### Major Changes
