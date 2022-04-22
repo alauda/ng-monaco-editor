@@ -227,7 +227,7 @@ export abstract class MonacoCommonEditorComponent
       this.editor = this.createEditor();
       this.listenModelChanges();
       this.editorChange.emit(this.editor);
-      this.modelId = this.model!.id;
+      this.modelId = this.model!.getLanguageId();
       this.cdr.markForCheck();
     }
   }
