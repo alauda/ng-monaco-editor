@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.2
+
+### Patch Changes
+
+- [#79](https://github.com/alauda/ng-monaco-editor/pull/79) [`127fb20`](https://github.com/alauda/ng-monaco-editor/commit/127fb20848a53f82a5c8952a16b7ac351f11c544) Thanks [@JounQin](https://github.com/JounQin)! - chore: compatibility with older monaco
+
 ## 5.0.1
 
 ### Patch Changes
