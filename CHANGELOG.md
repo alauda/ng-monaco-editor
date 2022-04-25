@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.3
+
+### Patch Changes
+
+- [`77ca594`](https://github.com/alauda/ng-monaco-editor/commit/77ca59493a261177dd1681749ac6518aedf609ae) Thanks [@JounQin](https://github.com/JounQin)! - fix: model-id is not language id
+
 ## 5.0.2
 
 ### Patch Changes
