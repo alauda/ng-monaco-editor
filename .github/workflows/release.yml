@@ -22,15 +22,12 @@ jobs:
           node-version: 16
           cache: yarn
 
-      - name: Link Yarn global binaries into PATH
-        run: echo "$(yarn global bin)" >> $GITHUB_PATH
-
       - name: Install Dependencies
         run: yarn --frozen-lockfile
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
-        uses: changesets/action@master
+        uses: changesets/action@v1
         with:
           commit: 'chore: release ng-monaco-editor'
           title: 'chore: release ng-monaco-editor'

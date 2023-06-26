@@ -1,7 +1,7 @@
 {
   "extends": "@1stg/tsconfig/ng-lib",
   "compilerOptions": {
-    "noImplicitOverride": true
+    "target": "ES2022"
   },
   "ts-node": {
     "compilerOptions": {
