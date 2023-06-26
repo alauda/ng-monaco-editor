@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.0
+
+### Minor Changes
+
+- [#91](https://github.com/alauda/ng-monaco-editor/pull/91) [`e2232ad`](https://github.com/alauda/ng-monaco-editor/commit/e2232ad797394ddd84e6c4c54ba037b7f094c3fa) Thanks [@JounQin](https://github.com/JounQin)! - chore: bump dependencies
+
 ## 5.0.3
 
 ### Patch Changes
