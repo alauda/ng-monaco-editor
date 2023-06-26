@@ -2,6 +2,8 @@
   "extends": "../tsconfig.json",
   "include": ["./**/*.ts", "../stories/**/*.ts"],
   "compilerOptions": {
-    "baseUrl": ".."
+    "baseUrl": "..",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
   }
 }

@@ -23,8 +23,7 @@ export interface Require {
  */
 @Injectable({ providedIn: 'root' })
 export class MonacoProviderService {
-  private _theme =
-    this.monacoEditorConfig.defaultOptions?.theme ?? this.themes[0];
+  private _theme: string;
 
   private _monaco?: Monaco;
   private _loadingPromise?: Promise<Monaco>;
@@ -61,7 +60,10 @@ export class MonacoProviderService {
     return window.require as unknown as Require;
   }
 
-  constructor(private readonly monacoEditorConfig: MonacoEditorConfig) {}
+  constructor(private readonly monacoEditorConfig: MonacoEditorConfig) {
+    this._theme =
+      this.monacoEditorConfig.defaultOptions?.theme ?? this.themes[0];
+  }
 
   async initMonaco() {
     return this._loadingPromise || (this._loadingPromise = this.loadMonaco());

@@ -1,20 +1,30 @@
+import type { StorybookConfig } from '@storybook/angular';
 import MonacoEditorWebpackPlugin from 'monaco-editor-webpack-plugin';
 import { Configuration } from 'webpack';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-export default {
-  stories: ['../stories/**/*.stories.ts'],
-  core: {
-    builder: 'webpack5',
-  },
+const config: StorybookConfig = {
+  stories: ['../stories/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    '@storybook/addon-actions',
-    '@storybook/addon-knobs',
-    '@storybook/addon-postcss',
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
   ],
-  staticDirs: [`../node_modules/monaco-editor/${isDev ?'dev':'min'}`],
+  framework: {
+    name: '@storybook/angular',
+    options: {},
+  },
+  staticDirs: [`../node_modules/monaco-editor/${isDev ? 'dev' : 'min'}`],
   webpackFinal(config: Configuration) {
+    config.module!.rules!.push({
+      test: /node_modules[/\\]monaco-editor[/\\]esm[/\\].+\.css$/i,
+      use: [
+        'style-loader',
+        'css-loader',
+      ],
+    });
+
     config.plugins!.push(
       new MonacoEditorWebpackPlugin({
         languages: ['yaml'],
@@ -31,6 +41,9 @@ export default {
         ],
       }),
     );
+
     return config;
   },
 };
+
+export default config;

@@ -2,7 +2,7 @@
   "extends": "@1stg/eslint-config/loose",
   "rules": {
     "@angular-eslint/component-selector": [
-      2,
+      "error",
       {
         "type": "element",
         "prefix": "ng",
@@ -10,12 +10,14 @@
       }
     ],
     "@angular-eslint/directive-selector": [
-      2,
+      "error",
       {
         "type": "attribute",
         "prefix": "ng",
         "style": "camelCase"
       }
-    ]
+    ],
+    "markup/markup": "off",
+    "unicorn/prefer-event-target": "off"
   }
 }

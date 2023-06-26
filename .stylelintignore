@@ -1,5 +1,8 @@
+LICENSE
 dist
 node_modules
 release
 *.json
+*.lock
 *.log
+*.ts

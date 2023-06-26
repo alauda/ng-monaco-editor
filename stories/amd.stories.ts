@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
+import { Meta } from '@storybook/angular';
 
 import { MonacoEditorModule } from '../src/public-api';
 
-import { startStories } from './base';
+import { getStories } from './base';
 
 @NgModule({
   imports: [
@@ -12,6 +13,20 @@ import { startStories } from './base';
   ],
   exports: [MonacoEditorModule],
 })
-export class AmdRootModule {}
+class AmdRootModule {}
 
-startStories(AmdRootModule);
+const {
+  meta: _meta,
+  MonacoEditor,
+  MonacoDiffEditor,
+  ColorizeCode,
+} = getStories(AmdRootModule);
+
+const meta: Meta = {
+  ..._meta,
+  title: 'Code Editor - AMD',
+};
+
+export { ColorizeCode, MonacoDiffEditor, MonacoEditor };
+
+export default meta;
