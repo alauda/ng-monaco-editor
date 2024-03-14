@@ -1,6 +1,6 @@
 {
   "name": "ng-monaco-editor",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "Angular wrapper for monaco-editor",
   "repository": "git+https://github.com/alauda/ng-monaco-editor.git",
   "author": "Alauda Frontend",

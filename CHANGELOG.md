@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.1
+
+### Patch Changes
+
+- [#96](https://github.com/alauda/ng-monaco-editor/pull/96) [`a2d430e`](https://github.com/alauda/ng-monaco-editor/commit/a2d430eb38039182ce010cd07f86eca38d39f7d7) Thanks [@yangxiaolang](https://github.com/yangxiaolang)! - fix: exit fullscreen model dup error
+
 ## 5.1.0
 
 ### Minor Changes
