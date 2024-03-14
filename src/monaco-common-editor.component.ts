@@ -208,11 +208,10 @@ export abstract class MonacoCommonEditorComponent
 
   createModel(value: string, uri?: string): editor.ITextModel {
     const { monaco } = this.monacoProvider;
-    return monaco.editor.createModel(
-      value,
-      this.options.language,
-      uri ? monaco.Uri.parse(uri) : undefined,
-    );
+    const modelUri = uri ? monaco.Uri.parse(uri) : undefined;
+    const model = modelUri && monaco.editor.getModel(modelUri);
+    model?.dispose();
+    return monaco.editor.createModel(value, this.options.language, modelUri);
   }
 
   private async resetEditor() {
