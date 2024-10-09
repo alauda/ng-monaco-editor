@@ -18,6 +18,8 @@ export interface Require {
   }): void;
 }
 
+const NONCE = 'g6oHcXjoYW7NfBS4';
+
 /**
  * Provider for monaco editor.
  */
@@ -66,6 +68,8 @@ export class MonacoProviderService {
   }
 
   async initMonaco() {
+    this.initCSPNonce();
+
     return this._loadingPromise || (this._loadingPromise = this.loadMonaco());
   }
 
@@ -146,6 +150,29 @@ export class MonacoProviderService {
     return this.monaco.languages
       .getLanguages()
       .find(({ aliases, id }) => aliases?.includes(alias) || id === alias);
+  }
+
+  private initCSPNonce() {
+    const observer = new MutationObserver(mutationsList => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach(node => {
+            if (
+              (node as HTMLElement).tagName === 'STYLE' &&
+              !(node as HTMLElement).getAttribute('nonce')
+            ) {
+              (node as HTMLElement).setAttribute('nonce', NONCE);
+            }
+          });
+        }
+      }
+    });
+
+    // 监听 <head> 标签的变化
+    observer.observe(document.head, { childList: true, subtree: true });
+
+    // 如果 monaco-editor 插入样式到 <body>，可以监听 <body> 标签
+    observer.observe(document.body, { childList: true, subtree: true });
   }
 
   /**

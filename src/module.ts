@@ -4,6 +4,7 @@ import {
   NgModule,
   Optional,
   SkipSelf,
+  CSP_NONCE,
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -52,6 +53,10 @@ export class MonacoEditorModule {
         {
           provide: MonacoEditorConfig,
           useValue: config,
+        },
+        {
+          provide: CSP_NONCE,
+          useValue: 'g6oHcXjoYW7NfBS4',
         },
       ],
     };
